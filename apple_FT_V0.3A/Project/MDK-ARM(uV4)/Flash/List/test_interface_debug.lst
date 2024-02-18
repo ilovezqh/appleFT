@@ -1,0 +1,42 @@
+L 1 "..\..\User\factory_test\test_interface_debug.c"
+N#include "test_interface.h"
+L 1 "..\..\User\factory_test\test_interface.h" 1
+N#ifndef __TEST_INTERFACE_H
+N#define __TEST_INTERFACE_H
+N
+N//#define SEN_CAP_PORT        GPIOB
+N//#define SEN_CAP_PIN         GPIO_Pin_15
+N
+N#define VOUT_EN_PORT        GPIOD
+N#define VOUT_EN_PIN         GPIO_Pin_15
+N
+N//#define SCL_PORT            GPIOB
+N//#define SCL_PIN             GPIO_Pin_6
+N
+N//#define SDA_PORT            GPIOB
+N//#define SDA_PIN             GPIO_Pin_7
+N
+N
+N//#define SCL_PU_PORT         GPIOA
+N//#define SCL_PU_PIN          GPIO_Pin_0
+N
+N//#define SDA_PU_PORT         GPIOA
+N//#define SDA_PU_PIN          GPIO_Pin_1
+N
+N
+N//#define AT_SWITCH_PORT      GPIOC
+N//#define AT_SWITCH_PIN       GPIO_Pin_6
+N
+N 
+Nstruct  test_power_ops  //test interface Operations
+N{
+N    void (*init)(void);
+N    void (*on)(void);
+N    void (*off)(void);
+N    void (*consumption_on)(void);
+N    void (*consumption_off)(void);
+N};
+Nextern struct test_power_ops test_power;
+N
+N#endif
+L 2 "..\..\User\factory_test\test_interface_debug.c" 2

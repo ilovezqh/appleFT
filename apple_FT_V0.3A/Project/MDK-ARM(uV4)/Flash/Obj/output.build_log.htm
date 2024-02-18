@@ -1,0 +1,74 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.38.0.0
+Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Z qizhang, HP Inc., LIC=Q7GU5-G7SJ0-VJS6J-U2JT7-V7YGL-2RRCZ
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.37.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.37.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      CMSIS_AGDI.dll V1.33.12.0
+Dialog DLL:      TCM.DLL V1.56.1.0
+ 
+<h2>Project:</h2>
+E:\05_apple\01.cp_ft\stm32\apple_FT_V0.3A\Project\MDK-ARM(uV4)\project.uvprojx
+Project File Date:  01/25/2024
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'Flash'
+compiling test_spl.c...
+linking...
+Program Size: Code=64780 RO-data=184392 RW-data=1788 ZI-data=89052  
+FromELF: creating hex file...
+After Build - User command #1: CopyHex_Flash.bat
+E:\05_apple\01.cp_ft\stm32\apple_FT_V0.3A\Project\MDK-ARM(uV4)>copy Flash\Obj\output.hex ..\output(mdk).hex 
+已复制         1 个文件。
+E:\05_apple\01.cp_ft\stm32\apple_FT_V0.3A\Project\MDK-ARM(uV4)>start /b Keil5_disp_size_bar_v0.3.exe 
+[Keil5_disp_size_bar V0.3]: start find map file
+[Keil5_disp_size_bar V0.3]: Found:E:\05_apple\01.cp_ft\stm32\apple_FT_V0.3A\Project\MDK-ARM(uV4)\Flash\List\output.map
+[Keil5_disp_size_bar V0.3]: found end
+ram:
+  128 KB   ram1:|■■■■■■■■■■■■■_______| 69.30 % (   88.70 KB /   128.00 KB) [40240 B]
+    0 KB   ram2:|■■■■■■■■■■■■■■■■■■■■|100.00 % (    0.00 KB /     0.00 KB) [0 B]
+    0 KB   ram3:|■■■■■■■■■■■■■■■■■■■■|100.00 % (    0.00 KB /     0.00 KB) [0 B]
+flash:
+ 1024 KB flash1:|■■■■________________| 23.76 % (  243.33 KB /  1024.00 KB) [799404 B]
+ 
+".\Flash\Obj\output.axf" - 0 Error(s), 0 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM.CMSIS.5.9.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.6.0
+
+Package Vendor: Keil
+                https://www.keil.com/pack/Keil.STM32F4xx_DFP.2.17.1.pack
+                Keil.STM32F4xx_DFP.2.17.1
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_Flash
+  C:/Users/qizha/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/qizha/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.6.0
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>

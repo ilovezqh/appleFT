@@ -1,0 +1,4165 @@
+L 1 "C:/Users/qizha/AppData/Local/Arm/Packs/GorgonMeducer/perf_counter/2.2.3/perf_counter.c"
+L 1 ".\RTE\_Flash\Pre_Include_Global.h" 1
+N
+N/*
+N * Auto generated Run-Time-Environment Configuration File
+N *      *** Do not modify ! ***
+N *
+N * Project: 'project' 
+N * Target:  'Flash' 
+N */
+N
+N#ifndef PRE_INCLUDE_GLOBAL_H
+N#define PRE_INCLUDE_GLOBAL_H
+N
+N/* GorgonMeducer::Utilities:perf_counter:Core:Source:2.2.3 */
+N#define __PERF_COUNTER_CFG_USE_SYSTICK_WRAPPER__ 1
+N
+N
+N#endif /* PRE_INCLUDE_GLOBAL_H */
+L 1 "C:/Users/qizha/AppData/Local/Arm/Packs/GorgonMeducer/perf_counter/2.2.3/perf_counter.c" 2
+N/****************************************************************************
+N*  Copyright 2022 Gorgon Meducer (Email:embedded_zhuoran@hotmail.com)       *
+N*                                                                           *
+N*  Licensed under the Apache License, Version 2.0 (the "License");          *
+N*  you may not use this file except in compliance with the License.         *
+N*  You may obtain a copy of the License at                                  *
+N*                                                                           *
+N*     http://www.apache.org/licenses/LICENSE-2.0                            *
+N*                                                                           *
+N*  Unless required by applicable law or agreed to in writing, software      *
+N*  distributed under the License is distributed on an "AS IS" BASIS,        *
+N*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+N*  See the License for the specific language governing permissions and      *
+N*  limitations under the License.                                           *
+N*                                                                           *
+N****************************************************************************/
+N
+N/*============================ INCLUDES ======================================*/
+N#undef __PERF_COUNT_PLATFORM_SPECIFIC_HEADER__
+N
+N#include <stdint.h>
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h" 1
+N/* Copyright (C) ARM Ltd., 1999,2014 */
+N/* All rights reserved */
+N
+N/*
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: agrant $
+N */
+N
+N#ifndef __stdint_h
+N#define __stdint_h
+N#define __ARMCLIB_VERSION 5060044
+N
+N  #ifdef __INT64_TYPE__
+S    /* armclang predefines '__INT64_TYPE__' and '__INT64_C_SUFFIX__' */
+S    #define __INT64 __INT64_TYPE__
+N  #else
+N    /* armcc has builtin '__int64' which can be used in --strict mode */
+N    #define __INT64 __int64
+N    #define __INT64_C_SUFFIX__ ll
+N  #endif
+N  #define __PASTE2(x, y) x ## y
+N  #define __PASTE(x, y) __PASTE2(x, y)
+N  #define __INT64_C(x)  __ESCAPE__(__PASTE(x, __INT64_C_SUFFIX__))
+N  #define __UINT64_C(x)  __ESCAPE__(__PASTE(x ## u, __INT64_C_SUFFIX__))
+N  #if defined(__clang__) || (defined(__ARMCC_VERSION) && !defined(__STRICT_ANSI__))
+X  #if 0L || (1L && !0L)
+N    /* armclang and non-strict armcc allow 'long long' in system headers */
+N    #define __LONGLONG long long
+N  #else
+S    /* strict armcc has '__int64' */
+S    #define __LONGLONG __int64
+N  #endif
+N
+N  #ifndef __STDINT_DECLS
+N  #define __STDINT_DECLS
+N
+N    #undef __CLIBNS
+N
+N    #ifdef __cplusplus
+S      namespace std {
+S          #define __CLIBNS std::
+S          extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N
+N/*
+N * 'signed' is redundant below, except for 'signed char' and if
+N * the typedef is used to declare a bitfield.
+N */
+N
+N    /* 7.18.1.1 */
+N
+N    /* exact-width signed integer types */
+Ntypedef   signed          char int8_t;
+Ntypedef   signed short     int int16_t;
+Ntypedef   signed           int int32_t;
+Ntypedef   signed       __INT64 int64_t;
+Xtypedef   signed       __int64 int64_t;
+N
+N    /* exact-width unsigned integer types */
+Ntypedef unsigned          char uint8_t;
+Ntypedef unsigned short     int uint16_t;
+Ntypedef unsigned           int uint32_t;
+Ntypedef unsigned       __INT64 uint64_t;
+Xtypedef unsigned       __int64 uint64_t;
+N
+N    /* 7.18.1.2 */
+N
+N    /* smallest type of at least n bits */
+N    /* minimum-width signed integer types */
+Ntypedef   signed          char int_least8_t;
+Ntypedef   signed short     int int_least16_t;
+Ntypedef   signed           int int_least32_t;
+Ntypedef   signed       __INT64 int_least64_t;
+Xtypedef   signed       __int64 int_least64_t;
+N
+N    /* minimum-width unsigned integer types */
+Ntypedef unsigned          char uint_least8_t;
+Ntypedef unsigned short     int uint_least16_t;
+Ntypedef unsigned           int uint_least32_t;
+Ntypedef unsigned       __INT64 uint_least64_t;
+Xtypedef unsigned       __int64 uint_least64_t;
+N
+N    /* 7.18.1.3 */
+N
+N    /* fastest minimum-width signed integer types */
+Ntypedef   signed           int int_fast8_t;
+Ntypedef   signed           int int_fast16_t;
+Ntypedef   signed           int int_fast32_t;
+Ntypedef   signed       __INT64 int_fast64_t;
+Xtypedef   signed       __int64 int_fast64_t;
+N
+N    /* fastest minimum-width unsigned integer types */
+Ntypedef unsigned           int uint_fast8_t;
+Ntypedef unsigned           int uint_fast16_t;
+Ntypedef unsigned           int uint_fast32_t;
+Ntypedef unsigned       __INT64 uint_fast64_t;
+Xtypedef unsigned       __int64 uint_fast64_t;
+N
+N    /* 7.18.1.4 integer types capable of holding object pointers */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+Stypedef   signed       __INT64 intptr_t;
+Stypedef unsigned       __INT64 uintptr_t;
+N#else
+Ntypedef   signed           int intptr_t;
+Ntypedef unsigned           int uintptr_t;
+N#endif
+N
+N    /* 7.18.1.5 greatest-width integer types */
+Ntypedef   signed     __LONGLONG intmax_t;
+Xtypedef   signed     long long intmax_t;
+Ntypedef unsigned     __LONGLONG uintmax_t;
+Xtypedef unsigned     long long uintmax_t;
+N
+N
+N#if !defined(__cplusplus) || defined(__STDC_LIMIT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.2.1 */
+N
+N    /* minimum values of exact-width signed integer types */
+N#define INT8_MIN                   -128
+N#define INT16_MIN                -32768
+N#define INT32_MIN          (~0x7fffffff)   /* -2147483648 is unsigned */
+N#define INT64_MIN  __INT64_C(~0x7fffffffffffffff) /* -9223372036854775808 is unsigned */
+N
+N    /* maximum values of exact-width signed integer types */
+N#define INT8_MAX                    127
+N#define INT16_MAX                 32767
+N#define INT32_MAX            2147483647
+N#define INT64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of exact-width unsigned integer types */
+N#define UINT8_MAX                   255
+N#define UINT16_MAX                65535
+N#define UINT32_MAX           4294967295u
+N#define UINT64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.2 */
+N
+N    /* minimum values of minimum-width signed integer types */
+N#define INT_LEAST8_MIN                   -128
+N#define INT_LEAST16_MIN                -32768
+N#define INT_LEAST32_MIN          (~0x7fffffff)
+N#define INT_LEAST64_MIN  __INT64_C(~0x7fffffffffffffff)
+N
+N    /* maximum values of minimum-width signed integer types */
+N#define INT_LEAST8_MAX                    127
+N#define INT_LEAST16_MAX                 32767
+N#define INT_LEAST32_MAX            2147483647
+N#define INT_LEAST64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of minimum-width unsigned integer types */
+N#define UINT_LEAST8_MAX                   255
+N#define UINT_LEAST16_MAX                65535
+N#define UINT_LEAST32_MAX           4294967295u
+N#define UINT_LEAST64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.3 */
+N
+N    /* minimum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MIN           (~0x7fffffff)
+N#define INT_FAST16_MIN          (~0x7fffffff)
+N#define INT_FAST32_MIN          (~0x7fffffff)
+N#define INT_FAST64_MIN  __INT64_C(~0x7fffffffffffffff)
+N
+N    /* maximum values of fastest minimum-width signed integer types */
+N#define INT_FAST8_MAX             2147483647
+N#define INT_FAST16_MAX            2147483647
+N#define INT_FAST32_MAX            2147483647
+N#define INT_FAST64_MAX  __INT64_C(9223372036854775807)
+N
+N    /* maximum values of fastest minimum-width unsigned integer types */
+N#define UINT_FAST8_MAX            4294967295u
+N#define UINT_FAST16_MAX           4294967295u
+N#define UINT_FAST32_MAX           4294967295u
+N#define UINT_FAST64_MAX __UINT64_C(18446744073709551615)
+N
+N    /* 7.18.2.4 */
+N
+N    /* minimum value of pointer-holding signed integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define INTPTR_MIN INT64_MIN
+N#else
+N#define INTPTR_MIN INT32_MIN
+N#endif
+N
+N    /* maximum value of pointer-holding signed integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define INTPTR_MAX INT64_MAX
+N#else
+N#define INTPTR_MAX INT32_MAX
+N#endif
+N
+N    /* maximum value of pointer-holding unsigned integer type */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define UINTPTR_MAX UINT64_MAX
+N#else
+N#define UINTPTR_MAX UINT32_MAX
+N#endif
+N
+N    /* 7.18.2.5 */
+N
+N    /* minimum value of greatest-width signed integer type */
+N#define INTMAX_MIN  __ESCAPE__(~0x7fffffffffffffffll)
+N
+N    /* maximum value of greatest-width signed integer type */
+N#define INTMAX_MAX  __ESCAPE__(9223372036854775807ll)
+N
+N    /* maximum value of greatest-width unsigned integer type */
+N#define UINTMAX_MAX __ESCAPE__(18446744073709551615ull)
+N
+N    /* 7.18.3 */
+N
+N    /* limits of ptrdiff_t */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define PTRDIFF_MIN INT64_MIN
+S#define PTRDIFF_MAX INT64_MAX
+N#else
+N#define PTRDIFF_MIN INT32_MIN
+N#define PTRDIFF_MAX INT32_MAX
+N#endif
+N
+N    /* limits of sig_atomic_t */
+N#define SIG_ATOMIC_MIN (~0x7fffffff)
+N#define SIG_ATOMIC_MAX   2147483647
+N
+N    /* limit of size_t */
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S#define SIZE_MAX UINT64_MAX
+N#else
+N#define SIZE_MAX UINT32_MAX
+N#endif
+N
+N    /* limits of wchar_t */
+N    /* NB we have to undef and redef because they're defined in both
+N     * stdint.h and wchar.h */
+N#undef WCHAR_MIN
+N#undef WCHAR_MAX
+N
+N#if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+X#if 0L || (0L && __ARM_SIZEOF_WCHAR_T == 4)
+S  #define WCHAR_MIN   0
+S  #define WCHAR_MAX   0xffffffffU
+N#else
+N  #define WCHAR_MIN   0
+N  #define WCHAR_MAX   65535
+N#endif
+N
+N    /* limits of wint_t */
+N#define WINT_MIN (~0x7fffffff)
+N#define WINT_MAX 2147483647
+N
+N#endif /* __STDC_LIMIT_MACROS */
+N
+N#if !defined(__cplusplus) || defined(__STDC_CONSTANT_MACROS)
+X#if !0L || 0L
+N
+N    /* 7.18.4.1 macros for minimum-width integer constants */
+N#define INT8_C(x)   (x)
+N#define INT16_C(x)  (x)
+N#define INT32_C(x)  (x)
+N#define INT64_C(x)  __INT64_C(x)
+N
+N#define UINT8_C(x)  (x ## u)
+N#define UINT16_C(x) (x ## u)
+N#define UINT32_C(x) (x ## u)
+N#define UINT64_C(x) __UINT64_C(x)
+N
+N    /* 7.18.4.2 macros for greatest-width integer constants */
+N#define INTMAX_C(x)  __ESCAPE__(x ## ll)
+N#define UINTMAX_C(x) __ESCAPE__(x ## ull)
+N
+N#endif /* __STDC_CONSTANT_MACROS */
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STDINT_DECLS */
+N
+N  #ifdef __cplusplus
+S    #ifndef __STDINT_NO_EXPORTS
+S      using ::std::int8_t;
+S      using ::std::int16_t;
+S      using ::std::int32_t;
+S      using ::std::int64_t;
+S      using ::std::uint8_t;
+S      using ::std::uint16_t;
+S      using ::std::uint32_t;
+S      using ::std::uint64_t;
+S      using ::std::int_least8_t;
+S      using ::std::int_least16_t;
+S      using ::std::int_least32_t;
+S      using ::std::int_least64_t;
+S      using ::std::uint_least8_t;
+S      using ::std::uint_least16_t;
+S      using ::std::uint_least32_t;
+S      using ::std::uint_least64_t;
+S      using ::std::int_fast8_t;
+S      using ::std::int_fast16_t;
+S      using ::std::int_fast32_t;
+S      using ::std::int_fast64_t;
+S      using ::std::uint_fast8_t;
+S      using ::std::uint_fast16_t;
+S      using ::std::uint_fast32_t;
+S      using ::std::uint_fast64_t;
+S      using ::std::intptr_t;
+S      using ::std::uintptr_t;
+S      using ::std::intmax_t;
+S      using ::std::uintmax_t;
+S    #endif
+N  #endif /* __cplusplus */
+N
+N#undef __INT64
+N#undef __LONGLONG
+N
+N#endif /* __stdint_h */
+N
+N/* end of stdint.h */
+L 22 "C:/Users/qizha/AppData/Local/Arm/Packs/GorgonMeducer/perf_counter/2.2.3/perf_counter.c" 2
+N#include <stdbool.h>
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
+N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
+N
+N/* Copyright (C) ARM Ltd., 2002
+N * All rights reserved
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: drodgman $
+N */
+N
+N#ifndef __bool_true_false_are_defined
+N#define __bool_true_false_are_defined 1
+N#define __ARMCLIB_VERSION 5060044
+N
+N  #ifndef __cplusplus /* In C++, 'bool', 'true' and 'false' and keywords */
+N    #define bool _Bool
+N    #define true 1
+N    #define false 0
+N  #else
+S    #ifdef __GNUC__
+S      /* GNU C++ supports direct inclusion of stdbool.h to provide C99
+S         compatibility by defining _Bool */
+S      #define _Bool bool
+S    #endif
+N  #endif
+N
+N#endif /* __bool_true_false_are_defined */
+N
+L 23 "C:/Users/qizha/AppData/Local/Arm/Packs/GorgonMeducer/perf_counter/2.2.3/perf_counter.c" 2
+N#include <string.h>
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h" 1
+N/* string.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.11 */
+N/* Copyright (C) Codemist Ltd., 1988-1993.                        */
+N/* Copyright 1991-1993 ARM Limited. All rights reserved.          */
+N/* version 0.04 */
+N
+N/*
+N * RCS $Revision$
+N * Checkin $Date$
+N */
+N
+N/*
+N * string.h declares one type and several functions, and defines one macro
+N * useful for manipulating character arrays and other objects treated as
+N * character arrays. Various methods are used for determining the lengths of
+N * the arrays, but in all cases a char * or void * argument points to the
+N * initial (lowest addresses) character of the array. If an array is written
+N * beyond the end of an object, the behaviour is undefined.
+N */
+N
+N#ifndef __string_h
+N#define __string_h
+N#define __ARMCLIB_VERSION 5060044
+N
+N#define _ARMABI __declspec(__nothrow)
+N
+N  #ifndef __STRING_DECLS
+N  #define __STRING_DECLS
+N
+N    #undef __CLIBNS
+N
+N    #ifdef __cplusplus
+S        namespace std {
+S        #define __CLIBNS std::
+S        extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N#if defined(__cplusplus) || !defined(__STRICT_ANSI__)
+X#if 0L || !0L
+N /* unconditional in C++ and non-strict C for consistency of debug info */
+N  #if __sizeof_ptr == 8
+X  #if 4 == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+N  #else
+N    typedef unsigned int size_t;   /* see <stddef.h> */
+N  #endif
+N#elif !defined(__size_t)
+X#elif !0L
+S  #define __size_t 1
+S  #if __sizeof_ptr == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+S  #else
+S    typedef unsigned int size_t;   /* see <stddef.h> */
+S  #endif
+N#endif
+N
+N#undef NULL
+N#define NULL 0                   /* see <stddef.h> */
+N
+Nextern _ARMABI void *memcpy(void * __restrict /*s1*/,
+Xextern __declspec(__nothrow) void *memcpy(void * __restrict  ,
+N                    const void * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies n characters from the object pointed to by s2 into the object
+N    * pointed to by s1. If copying takes place between objects that overlap,
+N    * the behaviour is undefined.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI void *memmove(void * /*s1*/,
+Xextern __declspec(__nothrow) void *memmove(void *  ,
+N                    const void * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies n characters from the object pointed to by s2 into the object
+N    * pointed to by s1. Copying takes place as if the n characters from the
+N    * object pointed to by s2 are first copied into a temporary array of n
+N    * characters that does not overlap the objects pointed to by s1 and s2,
+N    * and then the n characters from the temporary array are copied into the
+N    * object pointed to by s1.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI char *strcpy(char * __restrict /*s1*/, const char * __restrict /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strcpy(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies the string pointed to by s2 (including the terminating nul
+N    * character) into the array pointed to by s1. If copying takes place
+N    * between objects that overlap, the behaviour is undefined.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI char *strncpy(char * __restrict /*s1*/, const char * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strncpy(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies not more than n characters (characters that follow a null
+N    * character are not copied) from the array pointed to by s2 into the array
+N    * pointed to by s1. If copying takes place between objects that overlap,
+N    * the behaviour is undefined.
+N    * Returns: the value of s1.
+N    */
+N
+Nextern _ARMABI char *strcat(char * __restrict /*s1*/, const char * __restrict /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strcat(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * appends a copy of the string pointed to by s2 (including the terminating
+N    * null character) to the end of the string pointed to by s1. The initial
+N    * character of s2 overwrites the null character at the end of s1.
+N    * Returns: the value of s1.
+N    */
+Nextern _ARMABI char *strncat(char * __restrict /*s1*/, const char * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strncat(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * appends not more than n characters (a null character and characters that
+N    * follow it are not appended) from the array pointed to by s2 to the end of
+N    * the string pointed to by s1. The initial character of s2 overwrites the
+N    * null character at the end of s1. A terminating null character is always
+N    * appended to the result.
+N    * Returns: the value of s1.
+N    */
+N
+N/*
+N * The sign of a nonzero value returned by the comparison functions is
+N * determined by the sign of the difference between the values of the first
+N * pair of characters (both interpreted as unsigned char) that differ in the
+N * objects being compared.
+N */
+N
+Nextern _ARMABI int memcmp(const void * /*s1*/, const void * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int memcmp(const void *  , const void *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the first n characters of the object pointed to by s1 to the
+N    * first n characters of the object pointed to by s2.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the object pointed to by s1 is greater than, equal to, or
+N    *          less than the object pointed to by s2.
+N    */
+Nextern _ARMABI int strcmp(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strcmp(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the string pointed to by s1 to the string pointed to by s2.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strncmp(const char * /*s1*/, const char * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strncmp(const char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares not more than n characters (characters that follow a null
+N    * character are not compared) from the array pointed to by s1 to the array
+N    * pointed to by s2.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strcasecmp(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strcasecmp(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the string pointed to by s1 to the string pointed to by s2,
+N    * case-insensitively as defined by the current locale.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strncasecmp(const char * /*s1*/, const char * /*s2*/, size_t /*n*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strncasecmp(const char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares not more than n characters (characters that follow a null
+N    * character are not compared) from the array pointed to by s1 to the array
+N    * pointed to by s2, case-insensitively as defined by the current locale.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2.
+N    */
+Nextern _ARMABI int strcoll(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) int strcoll(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * compares the string pointed to by s1 to the string pointed to by s2, both
+N    * interpreted as appropriate to the LC_COLLATE category of the current
+N    * locale.
+N    * Returns: an integer greater than, equal to, or less than zero, according
+N    *          as the string pointed to by s1 is greater than, equal to, or
+N    *          less than the string pointed to by s2 when both are interpreted
+N    *          as appropriate to the current locale.
+N    */
+N
+Nextern _ARMABI size_t strxfrm(char * __restrict /*s1*/, const char * __restrict /*s2*/, size_t /*n*/) __attribute__((__nonnull__(2)));
+Xextern __declspec(__nothrow) size_t strxfrm(char * __restrict  , const char * __restrict  , size_t  ) __attribute__((__nonnull__(2)));
+N   /*
+N    * transforms the string pointed to by s2 and places the resulting string
+N    * into the array pointed to by s1. The transformation function is such that
+N    * if the strcmp function is applied to two transformed strings, it returns
+N    * a value greater than, equal to or less than zero, corresponding to the
+N    * result of the strcoll function applied to the same two original strings.
+N    * No more than n characters are placed into the resulting array pointed to
+N    * by s1, including the terminating null character. If n is zero, s1 is
+N    * permitted to be a null pointer. If copying takes place between objects
+N    * that overlap, the behaviour is undefined.
+N    * Returns: The length of the transformed string is returned (not including
+N    *          the terminating null character). If the value returned is n or
+N    *          more, the contents of the array pointed to by s1 are
+N    *          indeterminate.
+N    */
+N
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const void *memchr(const void * /*s*/, int /*c*/, size_t /*n*/) __attribute__((__nonnull__(1)));
+Sextern "C++" void *memchr(void * __s, int __c, size_t __n) __attribute__((__nonnull__(1)));
+Sextern "C++" inline void *memchr(void * __s, int __c, size_t __n)
+S    { return const_cast<void *>(memchr(const_cast<const void *>(__s), __c, __n)); }
+N#else
+Nextern _ARMABI void *memchr(const void * /*s*/, int /*c*/, size_t /*n*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) void *memchr(const void *  , int  , size_t  ) __attribute__((__nonnull__(1)));
+N#endif
+N   /*
+N    * locates the first occurence of c (converted to an unsigned char) in the
+N    * initial n characters (each interpreted as unsigned char) of the object
+N    * pointed to by s.
+N    * Returns: a pointer to the located character, or a null pointer if the
+N    *          character does not occur in the object.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Sextern "C++" char *strchr(char * __s, int __c) __attribute__((__nonnull__(1)));
+Sextern "C++" inline char *strchr(char * __s, int __c)
+S    { return const_cast<char *>(strchr(const_cast<const char *>(__s), __c)); }
+N#else
+Nextern _ARMABI char *strchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) char *strchr(const char *  , int  ) __attribute__((__nonnull__(1)));
+N#endif
+N   /*
+N    * locates the first occurence of c (converted to an char) in the string
+N    * pointed to by s (including the terminating null character).
+N    * Returns: a pointer to the located character, or a null pointer if the
+N    *          character does not occur in the string.
+N    */
+N
+Nextern _ARMABI size_t strcspn(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strcspn(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * computes the length of the initial segment of the string pointed to by s1
+N    * which consists entirely of characters not from the string pointed to by
+N    * s2. The terminating null character is not considered part of s2.
+N    * Returns: the length of the segment.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strpbrk(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Sextern "C++" char *strpbrk(char * __s1, const char * __s2) __attribute__((__nonnull__(1,2)));
+Sextern "C++" inline char *strpbrk(char * __s1, const char * __s2)
+S    { return const_cast<char *>(strpbrk(const_cast<const char *>(__s1), __s2)); }
+N#else
+Nextern _ARMABI char *strpbrk(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strpbrk(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N#endif
+N   /*
+N    * locates the first occurence in the string pointed to by s1 of any
+N    * character from the string pointed to by s2.
+N    * Returns: returns a pointer to the character, or a null pointer if no
+N    *          character form s2 occurs in s1.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strrchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Sextern "C++" char *strrchr(char * __s, int __c) __attribute__((__nonnull__(1)));
+Sextern "C++" inline char *strrchr(char * __s, int __c)
+S    { return const_cast<char *>(strrchr(const_cast<const char *>(__s), __c)); }
+N#else
+Nextern _ARMABI char *strrchr(const char * /*s*/, int /*c*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) char *strrchr(const char *  , int  ) __attribute__((__nonnull__(1)));
+N#endif
+N   /*
+N    * locates the last occurence of c (converted to a char) in the string
+N    * pointed to by s. The terminating null character is considered part of
+N    * the string.
+N    * Returns: returns a pointer to the character, or a null pointer if c does
+N    *          not occur in the string.
+N    */
+N
+Nextern _ARMABI size_t strspn(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strspn(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * computes the length of the initial segment of the string pointed to by s1
+N    * which consists entirely of characters from the string pointed to by S2
+N    * Returns: the length of the segment.
+N    */
+N
+N#ifdef __cplusplus
+Sextern _ARMABI const char *strstr(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Sextern "C++" char *strstr(char * __s1, const char * __s2) __attribute__((__nonnull__(1,2)));
+Sextern "C++" inline char *strstr(char * __s1, const char * __s2)
+S    { return const_cast<char *>(strstr(const_cast<const char *>(__s1), __s2)); }
+N#else
+Nextern _ARMABI char *strstr(const char * /*s1*/, const char * /*s2*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) char *strstr(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+N#endif
+N   /*
+N    * locates the first occurence in the string pointed to by s1 of the
+N    * sequence of characters (excluding the terminating null character) in the
+N    * string pointed to by s2.
+N    * Returns: a pointer to the located string, or a null pointer if the string
+N    *          is not found.
+N    */
+N
+Nextern _ARMABI char *strtok(char * __restrict /*s1*/, const char * __restrict /*s2*/) __attribute__((__nonnull__(2)));
+Xextern __declspec(__nothrow) char *strtok(char * __restrict  , const char * __restrict  ) __attribute__((__nonnull__(2)));
+Nextern _ARMABI char *_strtok_r(char * /*s1*/, const char * /*s2*/, char ** /*ptr*/) __attribute__((__nonnull__(2,3)));
+Xextern __declspec(__nothrow) char *_strtok_r(char *  , const char *  , char **  ) __attribute__((__nonnull__(2,3)));
+N#ifndef __STRICT_ANSI__
+Nextern _ARMABI char *strtok_r(char * /*s1*/, const char * /*s2*/, char ** /*ptr*/) __attribute__((__nonnull__(2,3)));
+Xextern __declspec(__nothrow) char *strtok_r(char *  , const char *  , char **  ) __attribute__((__nonnull__(2,3)));
+N#endif
+N   /*
+N    * A sequence of calls to the strtok function breaks the string pointed to
+N    * by s1 into a sequence of tokens, each of which is delimited by a
+N    * character from the string pointed to by s2. The first call in the
+N    * sequence has s1 as its first argument, and is followed by calls with a
+N    * null pointer as their first argument. The separator string pointed to by
+N    * s2 may be different from call to call.
+N    * The first call in the sequence searches for the first character that is
+N    * not contained in the current separator string s2. If no such character
+N    * is found, then there are no tokens in s1 and the strtok function returns
+N    * a null pointer. If such a character is found, it is the start of the
+N    * first token.
+N    * The strtok function then searches from there for a character that is
+N    * contained in the current separator string. If no such character is found,
+N    * the current token extends to the end of the string pointed to by s1, and
+N    * subsequent searches for a token will fail. If such a character is found,
+N    * it is overwritten by a null character, which terminates the current
+N    * token. The strtok function saves a pointer to the following character,
+N    * from which the next search for a token will start.
+N    * Each subsequent call, with a null pointer as the value for the first
+N    * argument, starts searching from the saved pointer and behaves as
+N    * described above.
+N    * Returns: pointer to the first character of a token, or a null pointer if
+N    *          there is no token.
+N    *
+N    * strtok_r() is a common extension which works exactly like
+N    * strtok(), but instead of storing its state in a hidden
+N    * library variable, requires the user to pass in a pointer to a
+N    * char * variable which will be used instead. Any sequence of
+N    * calls to strtok_r() passing the same char ** pointer should
+N    * behave exactly like the corresponding sequence of calls to
+N    * strtok(). This means that strtok_r() can safely be used in
+N    * multi-threaded programs, and also that you can tokenise two
+N    * strings in parallel.
+N    */
+N
+Nextern _ARMABI void *memset(void * /*s*/, int /*c*/, size_t /*n*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) void *memset(void *  , int  , size_t  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * copies the value of c (converted to an unsigned char) into each of the
+N    * first n charactes of the object pointed to by s.
+N    * Returns: the value of s.
+N    */
+Nextern _ARMABI char *strerror(int /*errnum*/);
+Xextern __declspec(__nothrow) char *strerror(int  );
+N   /*
+N    * maps the error number in errnum to an error message string.
+N    * Returns: a pointer to the string, the contents of which are
+N    *          implementation-defined. The array pointed to shall not be
+N    *          modified by the program, but may be overwritten by a
+N    *          subsequent call to the strerror function.
+N    */
+Nextern _ARMABI size_t strlen(const char * /*s*/) __attribute__((__nonnull__(1)));
+Xextern __declspec(__nothrow) size_t strlen(const char *  ) __attribute__((__nonnull__(1)));
+N   /*
+N    * computes the length of the string pointed to by s.
+N    * Returns: the number of characters that precede the terminating null
+N    *          character.
+N    */
+N
+Nextern _ARMABI size_t strlcpy(char * /*dst*/, const char * /*src*/, size_t /*len*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strlcpy(char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * copies the string src into the string dst, using no more than
+N    * len bytes of dst. Always null-terminates dst _within the
+N    * length len (i.e. will copy at most len-1 bytes of string plus
+N    * a NUL), unless len is actually zero.
+N    * 
+N    * Return value is the length of the string that _would_ have
+N    * been written, i.e. the length of src. Thus, the operation
+N    * succeeded without truncation if and only if ret < len;
+N    * otherwise, the value in ret tells you how big to make dst if
+N    * you decide to reallocate it. (That value does _not_ include
+N    * the NUL.)
+N    * 
+N    * This is a BSD-derived library extension, which we are
+N    * permitted to declare in a standard header because ISO defines
+N    * function names beginning with 'str' as reserved for future
+N    * expansion of <string.h>.
+N    */
+N
+Nextern _ARMABI size_t strlcat(char * /*dst*/, const char * /*src*/, size_t /*len*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) size_t strlcat(char *  , const char *  , size_t  ) __attribute__((__nonnull__(1,2)));
+N   /*
+N    * concatenates the string src to the string dst, using no more
+N    * than len bytes of dst. Always null-terminates dst _within the
+N    * length len (i.e. will copy at most len-1 bytes of string plus
+N    * a NUL), unless len is actually zero.
+N    * 
+N    * Return value is the length of the string that _would_ have
+N    * been written, i.e. the length of src plus the original length
+N    * of dst. Thus, the operation succeeded without truncation if
+N    * and only if ret < len; otherwise, the value in ret tells you
+N    * how big to make dst if you decide to reallocate it. (That
+N    * value does _not_ include the NUL.)
+N    * 
+N    * If no NUL is encountered within the first len bytes of dst,
+N    * then the length of dst is considered to have been equal to
+N    * len for the purposes of the return value (as if there were a
+N    * NUL at dst[len]). Thus, the return value in this case is len
+N    * + strlen(src).
+N    * 
+N    * This is a BSD-derived library extension, which we are
+N    * permitted to declare in a standard header because ISO defines
+N    * function names beginning with 'str' as reserved for future
+N    * expansion of <string.h>.
+N    */
+N
+Nextern _ARMABI void _membitcpybl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpybl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpybb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpybb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpyhl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpyhl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpyhb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpyhb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpywl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpywl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitcpywb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitcpywb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovebl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovebl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovebb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovebb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovehl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovehl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovehb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovehb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovewl(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovewl(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+Nextern _ARMABI void _membitmovewb(void * /*dest*/, const void * /*src*/, int /*destoffset*/, int /*srcoffset*/, size_t /*nbits*/) __attribute__((__nonnull__(1,2)));
+Xextern __declspec(__nothrow) void _membitmovewb(void *  , const void *  , int  , int  , size_t  ) __attribute__((__nonnull__(1,2)));
+N    /*
+N     * Copies or moves a piece of memory from one place to another,
+N     * with one-bit granularity. So you can start or finish a copy
+N     * part way through a byte, and you can copy between regions
+N     * with different alignment within a byte.
+N     * 
+N     * All these functions have the same prototype: two void *
+N     * pointers for destination and source, then two integers
+N     * giving the bit offset from those pointers, and finally the
+N     * number of bits to copy.
+N     * 
+N     * Just like memcpy and memmove, the "cpy" functions copy as
+N     * fast as they can in the assumption that the memory regions
+N     * do not overlap, while the "move" functions cope correctly
+N     * with overlap.
+N     *
+N     * Treating memory as a stream of individual bits requires
+N     * defining a convention about what order those bits are
+N     * considered to be arranged in. The above functions support
+N     * multiple conventions:
+N     * 
+N     *  - the "bl" functions consider the unit of memory to be the
+N     *    byte, and consider the bits within each byte to be
+N     *    arranged in little-endian fashion, so that the LSB comes
+N     *    first. (For example, membitcpybl(a,b,0,7,1) would copy
+N     *    the MSB of the byte at b to the LSB of the byte at a.)
+N     * 
+N     *  - the "bb" functions consider the unit of memory to be the
+N     *    byte, and consider the bits within each byte to be
+N     *    arranged in big-endian fashion, so that the MSB comes
+N     *    first.
+N     * 
+N     *  - the "hl" functions consider the unit of memory to be the
+N     *    16-bit halfword, and consider the bits within each word
+N     *    to be arranged in little-endian fashion.
+N     * 
+N     *  - the "hb" functions consider the unit of memory to be the
+N     *    16-bit halfword, and consider the bits within each word
+N     *    to be arranged in big-endian fashion.
+N     * 
+N     *  - the "wl" functions consider the unit of memory to be the
+N     *    32-bit word, and consider the bits within each word to be
+N     *    arranged in little-endian fashion.
+N     * 
+N     *  - the "wb" functions consider the unit of memory to be the
+N     *    32-bit word, and consider the bits within each word to be
+N     *    arranged in big-endian fashion.
+N     */
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STRING_DECLS */
+N
+N  #ifdef __cplusplus
+S    #ifndef __STRING_NO_EXPORTS
+S      using ::std::size_t;
+S      using ::std::memcpy;
+S      using ::std::memmove;
+S      using ::std::strcpy;
+S      using ::std::strncpy;
+S      using ::std::strcat;
+S      using ::std::strncat;
+S      using ::std::memcmp;
+S      using ::std::strcmp;
+S      using ::std::strncmp;
+S      using ::std::strcasecmp;
+S      using ::std::strncasecmp;
+S      using ::std::strcoll;
+S      using ::std::strxfrm;
+S      using ::std::memchr;
+S      using ::std::strchr;
+S      using ::std::strcspn;
+S      using ::std::strpbrk;
+S      using ::std::strrchr;
+S      using ::std::strspn;
+S      using ::std::strstr;
+S      using ::std::strtok;
+S#ifndef __STRICT_ANSI__
+S      using ::std::strtok_r;
+S#endif
+S      using ::std::_strtok_r;
+S      using ::std::memset;
+S      using ::std::strerror;
+S      using ::std::strlen;
+S      using ::std::strlcpy;
+S      using ::std::strlcat;
+S      using ::std::_membitcpybl;
+S      using ::std::_membitcpybb;
+S      using ::std::_membitcpyhl;
+S      using ::std::_membitcpyhb;
+S      using ::std::_membitcpywl;
+S      using ::std::_membitcpywb;
+S      using ::std::_membitmovebl;
+S      using ::std::_membitmovebb;
+S      using ::std::_membitmovehl;
+S      using ::std::_membitmovehb;
+S      using ::std::_membitmovewl;
+S      using ::std::_membitmovewb;
+S    #endif /* __STRING_NO_EXPORTS */
+N  #endif /* __cplusplus */
+N
+N#endif
+N
+N/* end of string.h */
+N
+L 24 "C:/Users/qizha/AppData/Local/Arm/Packs/GorgonMeducer/perf_counter/2.2.3/perf_counter.c" 2
+N#include "cmsis_compiler.h"
+L 1 "C:\Users\qizha\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h" 1
+N/**************************************************************************//**
+N * @file     cmsis_compiler.h
+N * @brief    CMSIS compiler generic header file
+N * @version  V5.1.0
+N * @date     09. October 2018
+N ******************************************************************************/
+N/*
+N * Copyright (c) 2009-2018 Arm Limited. All rights reserved.
+N *
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the License); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef __CMSIS_COMPILER_H
+N#define __CMSIS_COMPILER_H
+N
+N#include <stdint.h>
+N
+N/*
+N * Arm Compiler 4/5
+N */
+N#if   defined ( __CC_ARM )
+X#if   1L
+N  #include "cmsis_armcc.h"
+L 1 "C:\Users\qizha\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_armcc.h" 1
+N/**************************************************************************//**
+N * @file     cmsis_armcc.h
+N * @brief    CMSIS compiler ARMCC (Arm Compiler 5) header file
+N * @version  V5.3.2
+N * @date     27. May 2021
+N ******************************************************************************/
+N/*
+N * Copyright (c) 2009-2021 Arm Limited. All rights reserved.
+N *
+N * SPDX-License-Identifier: Apache-2.0
+N *
+N * Licensed under the Apache License, Version 2.0 (the License); you may
+N * not use this file except in compliance with the License.
+N * You may obtain a copy of the License at
+N *
+N * www.apache.org/licenses/LICENSE-2.0
+N *
+N * Unless required by applicable law or agreed to in writing, software
+N * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+N * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+N * See the License for the specific language governing permissions and
+N * limitations under the License.
+N */
+N
+N#ifndef __CMSIS_ARMCC_H
+N#define __CMSIS_ARMCC_H
+N
+N
+N#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 400677)
+X#if 1L && (5060960 < 400677)
+S  #error "Please use Arm Compiler Toolchain V4.0.677 or later!"
+N#endif
+N
+N/* CMSIS compiler control architecture macros */
+N#if ((defined (__TARGET_ARCH_6_M  ) && (__TARGET_ARCH_6_M   == 1)) || \
+N     (defined (__TARGET_ARCH_6S_M ) && (__TARGET_ARCH_6S_M  == 1))   )
+X#if ((0L && (__TARGET_ARCH_6_M   == 1)) ||      (0L && (__TARGET_ARCH_6S_M  == 1))   )
+S  #define __ARM_ARCH_6M__           1
+N#endif
+N
+N#if (defined (__TARGET_ARCH_7_M ) && (__TARGET_ARCH_7_M  == 1))
+X#if (0L && (__TARGET_ARCH_7_M  == 1))
+S  #define __ARM_ARCH_7M__           1
+N#endif
+N
+N#if (defined (__TARGET_ARCH_7E_M) && (__TARGET_ARCH_7E_M == 1))
+X#if (1L && (1 == 1))
+N  #define __ARM_ARCH_7EM__          1
+N#endif
+N
+N  /* __ARM_ARCH_8M_BASE__  not applicable */
+N  /* __ARM_ARCH_8M_MAIN__  not applicable */
+N  /* __ARM_ARCH_8_1M_MAIN__  not applicable */
+N
+N/* CMSIS compiler control DSP macros */
+N#if ((defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     )
+X#if ((1L && (1 == 1))     )
+N  #define __ARM_FEATURE_DSP         1
+N#endif
+N
+N/* CMSIS compiler specific defines */
+N#ifndef   __ASM
+N  #define __ASM                                  __asm
+N#endif
+N#ifndef   __INLINE
+N  #define __INLINE                               __inline
+N#endif
+N#ifndef   __STATIC_INLINE
+N  #define __STATIC_INLINE                        static __inline
+N#endif
+N#ifndef   __STATIC_FORCEINLINE
+N  #define __STATIC_FORCEINLINE                   static __forceinline
+N#endif
+N#ifndef   __NO_RETURN
+N  #define __NO_RETURN                            __declspec(noreturn)
+N#endif
+N#ifndef   __USED
+N  #define __USED                                 __attribute__((used))
+N#endif
+N#ifndef   __WEAK
+N  #define __WEAK                                 __attribute__((weak))
+N#endif
+N#ifndef   __PACKED
+N  #define __PACKED                               __attribute__((packed))
+N#endif
+N#ifndef   __PACKED_STRUCT
+N  #define __PACKED_STRUCT                        __packed struct
+N#endif
+N#ifndef   __PACKED_UNION
+N  #define __PACKED_UNION                         __packed union
+N#endif
+N#ifndef   __UNALIGNED_UINT32        /* deprecated */
+N  #define __UNALIGNED_UINT32(x)                  (*((__packed uint32_t *)(x)))
+N#endif
+N#ifndef   __UNALIGNED_UINT16_WRITE
+N  #define __UNALIGNED_UINT16_WRITE(addr, val)    ((*((__packed uint16_t *)(addr))) = (val))
+N#endif
+N#ifndef   __UNALIGNED_UINT16_READ
+N  #define __UNALIGNED_UINT16_READ(addr)          (*((const __packed uint16_t *)(addr)))
+N#endif
+N#ifndef   __UNALIGNED_UINT32_WRITE
+N  #define __UNALIGNED_UINT32_WRITE(addr, val)    ((*((__packed uint32_t *)(addr))) = (val))
+N#endif
+N#ifndef   __UNALIGNED_UINT32_READ
+N  #define __UNALIGNED_UINT32_READ(addr)          (*((const __packed uint32_t *)(addr)))
+N#endif
+N#ifndef   __ALIGNED
+N  #define __ALIGNED(x)                           __attribute__((aligned(x)))
+N#endif
+N#ifndef   __RESTRICT
+N  #define __RESTRICT                             __restrict
+N#endif
+N#ifndef   __COMPILER_BARRIER
+N  #define __COMPILER_BARRIER()                   __memory_changed()
+N#endif
+N
+N/* #########################  Startup and Lowlevel Init  ######################## */
+N
+N#ifndef __PROGRAM_START
+N#define __PROGRAM_START           __main
+N#endif
+N
+N#ifndef __INITIAL_SP
+N#define __INITIAL_SP              Image$$ARM_LIB_STACK$$ZI$$Limit
+N#endif
+N
+N#ifndef __STACK_LIMIT
+N#define __STACK_LIMIT             Image$$ARM_LIB_STACK$$ZI$$Base
+N#endif
+N
+N#ifndef __VECTOR_TABLE
+N#define __VECTOR_TABLE            __Vectors
+N#endif
+N
+N#ifndef __VECTOR_TABLE_ATTRIBUTE
+N#define __VECTOR_TABLE_ATTRIBUTE  __attribute__((used, section("RESET")))
+N#endif
+N
+N/* ##########################  Core Instruction Access  ######################### */
+N/** \defgroup CMSIS_Core_InstructionInterface CMSIS Core Instruction Interface
+N  Access to dedicated instructions
+N  @{
+N*/
+N
+N/**
+N  \brief   No Operation
+N  \details No Operation does nothing. This instruction can be used for code alignment purposes.
+N */
+N#define __NOP                             __nop
+N
+N
+N/**
+N  \brief   Wait For Interrupt
+N  \details Wait For Interrupt is a hint instruction that suspends execution until one of a number of events occurs.
+N */
+N#define __WFI                             __wfi
+N
+N
+N/**
+N  \brief   Wait For Event
+N  \details Wait For Event is a hint instruction that permits the processor to enter
+N           a low-power state until one of a number of events occurs.
+N */
+N#define __WFE                             __wfe
+N
+N
+N/**
+N  \brief   Send Event
+N  \details Send Event is a hint instruction. It causes an event to be signaled to the CPU.
+N */
+N#define __SEV                             __sev
+N
+N
+N/**
+N  \brief   Instruction Synchronization Barrier
+N  \details Instruction Synchronization Barrier flushes the pipeline in the processor,
+N           so that all instructions following the ISB are fetched from cache or memory,
+N           after the instruction has been completed.
+N */
+N#define __ISB()                           __isb(0xF)
+N
+N/**
+N  \brief   Data Synchronization Barrier
+N  \details Acts as a special kind of Data Memory Barrier.
+N           It completes when all explicit memory accesses before this instruction complete.
+N */
+N#define __DSB()                           __dsb(0xF)
+N
+N/**
+N  \brief   Data Memory Barrier
+N  \details Ensures the apparent order of the explicit memory operations before
+N           and after the instruction, without ensuring their completion.
+N */
+N#define __DMB()                           __dmb(0xF)
+N
+N
+N/**
+N  \brief   Reverse byte order (32 bit)
+N  \details Reverses the byte order in unsigned integer value. For example, 0x12345678 becomes 0x78563412.
+N  \param [in]    value  Value to reverse
+N  \return               Reversed value
+N */
+N#define __REV                             __rev
+N
+N
+N/**
+N  \brief   Reverse byte order (16 bit)
+N  \details Reverses the byte order within each halfword of a word. For example, 0x12345678 becomes 0x34127856.
+N  \param [in]    value  Value to reverse
+N  \return               Reversed value
+N */
+N#ifndef __NO_EMBEDDED_ASM
+N__attribute__((section(".rev16_text"))) __STATIC_INLINE __ASM uint32_t __REV16(uint32_t value)
+X__attribute__((section(".rev16_text"))) static __inline __asm uint32_t __REV16(uint32_t value)
+N{
+N  rev16 r0, r0
+N  bx lr
+N}
+N#endif
+N
+N
+N/**
+N  \brief   Reverse byte order (16 bit)
+N  \details Reverses the byte order in a 16-bit value and returns the signed 16-bit result. For example, 0x0080 becomes 0x8000.
+N  \param [in]    value  Value to reverse
+N  \return               Reversed value
+N */
+N#ifndef __NO_EMBEDDED_ASM
+N__attribute__((section(".revsh_text"))) __STATIC_INLINE __ASM int16_t __REVSH(int16_t value)
+X__attribute__((section(".revsh_text"))) static __inline __asm int16_t __REVSH(int16_t value)
+N{
+N  revsh r0, r0
+N  bx lr
+N}
+N#endif
+N
+N
+N/**
+N  \brief   Rotate Right in unsigned value (32 bit)
+N  \details Rotate Right (immediate) provides the value of the contents of a register rotated by a variable number of bits.
+N  \param [in]    op1  Value to rotate
+N  \param [in]    op2  Number of Bits to rotate
+N  \return               Rotated value
+N */
+N#define __ROR                             __ror
+N
+N
+N/**
+N  \brief   Breakpoint
+N  \details Causes the processor to enter Debug state.
+N           Debug tools can use this to investigate system state when the instruction at a particular address is reached.
+N  \param [in]    value  is ignored by the processor.
+N                 If required, a debugger can use it to store additional information about the breakpoint.
+N */
+N#define __BKPT(value)                       __breakpoint(value)
+N
+N
+N/**
+N  \brief   Reverse bit order of value
+N  \details Reverses the bit order of the given value.
+N  \param [in]    value  Value to reverse
+N  \return               Reversed value
+N */
+N#if ((defined (__ARM_ARCH_7M__ ) && (__ARM_ARCH_7M__  == 1)) || \
+N     (defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     )
+X#if ((0L && (__ARM_ARCH_7M__  == 1)) ||      (1L && (1 == 1))     )
+N  #define __RBIT                          __rbit
+N#else
+S__attribute__((always_inline)) __STATIC_INLINE uint32_t __RBIT(uint32_t value)
+S{
+S  uint32_t result;
+S  uint32_t s = (4U /*sizeof(v)*/ * 8U) - 1U; /* extra shift needed at end */
+S
+S  result = value;                      /* r will be reversed bits of v; first get LSB of v */
+S  for (value >>= 1U; value != 0U; value >>= 1U)
+S  {
+S    result <<= 1U;
+S    result |= value & 1U;
+S    s--;
+S  }
+S  result <<= s;                        /* shift when v's highest bits are zero */
+S  return result;
+S}
+N#endif
+N
+N
+N/**
+N  \brief   Count leading zeros
+N  \details Counts the number of leading zeros of a data value.
+N  \param [in]  value  Value to count the leading zeros
+N  \return             number of leading zeros in value
+N */
+N#define __CLZ                             __clz
+N
+N
+N#if ((defined (__ARM_ARCH_7M__ ) && (__ARM_ARCH_7M__  == 1)) || \
+N     (defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     )
+X#if ((0L && (__ARM_ARCH_7M__  == 1)) ||      (1L && (1 == 1))     )
+N
+N/**
+N  \brief   LDR Exclusive (8 bit)
+N  \details Executes a exclusive LDR instruction for 8 bit value.
+N  \param [in]    ptr  Pointer to data
+N  \return             value of type uint8_t at (*ptr)
+N */
+N#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
+X#if 1L && (5060960 < 5060020)
+S  #define __LDREXB(ptr)                                                        ((uint8_t ) __ldrex(ptr))
+N#else
+N  #define __LDREXB(ptr)          _Pragma("push") _Pragma("diag_suppress 3731") ((uint8_t ) __ldrex(ptr))  _Pragma("pop")
+N#endif
+N
+N
+N/**
+N  \brief   LDR Exclusive (16 bit)
+N  \details Executes a exclusive LDR instruction for 16 bit values.
+N  \param [in]    ptr  Pointer to data
+N  \return        value of type uint16_t at (*ptr)
+N */
+N#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
+X#if 1L && (5060960 < 5060020)
+S  #define __LDREXH(ptr)                                                        ((uint16_t) __ldrex(ptr))
+N#else
+N  #define __LDREXH(ptr)          _Pragma("push") _Pragma("diag_suppress 3731") ((uint16_t) __ldrex(ptr))  _Pragma("pop")
+N#endif
+N
+N
+N/**
+N  \brief   LDR Exclusive (32 bit)
+N  \details Executes a exclusive LDR instruction for 32 bit values.
+N  \param [in]    ptr  Pointer to data
+N  \return        value of type uint32_t at (*ptr)
+N */
+N#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
+X#if 1L && (5060960 < 5060020)
+S  #define __LDREXW(ptr)                                                        ((uint32_t ) __ldrex(ptr))
+N#else
+N  #define __LDREXW(ptr)          _Pragma("push") _Pragma("diag_suppress 3731") ((uint32_t ) __ldrex(ptr))  _Pragma("pop")
+N#endif
+N
+N
+N/**
+N  \brief   STR Exclusive (8 bit)
+N  \details Executes a exclusive STR instruction for 8 bit values.
+N  \param [in]  value  Value to store
+N  \param [in]    ptr  Pointer to location
+N  \return          0  Function succeeded
+N  \return          1  Function failed
+N */
+N#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
+X#if 1L && (5060960 < 5060020)
+S  #define __STREXB(value, ptr)                                                 __strex(value, ptr)
+N#else
+N  #define __STREXB(value, ptr)   _Pragma("push") _Pragma("diag_suppress 3731") __strex(value, ptr)        _Pragma("pop")
+N#endif
+N
+N
+N/**
+N  \brief   STR Exclusive (16 bit)
+N  \details Executes a exclusive STR instruction for 16 bit values.
+N  \param [in]  value  Value to store
+N  \param [in]    ptr  Pointer to location
+N  \return          0  Function succeeded
+N  \return          1  Function failed
+N */
+N#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
+X#if 1L && (5060960 < 5060020)
+S  #define __STREXH(value, ptr)                                                 __strex(value, ptr)
+N#else
+N  #define __STREXH(value, ptr)   _Pragma("push") _Pragma("diag_suppress 3731") __strex(value, ptr)        _Pragma("pop")
+N#endif
+N
+N
+N/**
+N  \brief   STR Exclusive (32 bit)
+N  \details Executes a exclusive STR instruction for 32 bit values.
+N  \param [in]  value  Value to store
+N  \param [in]    ptr  Pointer to location
+N  \return          0  Function succeeded
+N  \return          1  Function failed
+N */
+N#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION < 5060020)
+X#if 1L && (5060960 < 5060020)
+S  #define __STREXW(value, ptr)                                                 __strex(value, ptr)
+N#else
+N  #define __STREXW(value, ptr)   _Pragma("push") _Pragma("diag_suppress 3731") __strex(value, ptr)        _Pragma("pop")
+N#endif
+N
+N
+N/**
+N  \brief   Remove the exclusive lock
+N  \details Removes the exclusive lock which is created by LDREX.
+N */
+N#define __CLREX                           __clrex
+N
+N
+N/**
+N  \brief   Signed Saturate
+N  \details Saturates a signed value.
+N  \param [in]  value  Value to be saturated
+N  \param [in]    sat  Bit position to saturate to (1..32)
+N  \return             Saturated value
+N */
+N#define __SSAT                            __ssat
+N
+N
+N/**
+N  \brief   Unsigned Saturate
+N  \details Saturates an unsigned value.
+N  \param [in]  value  Value to be saturated
+N  \param [in]    sat  Bit position to saturate to (0..31)
+N  \return             Saturated value
+N */
+N#define __USAT                            __usat
+N
+N
+N/**
+N  \brief   Rotate Right with Extend (32 bit)
+N  \details Moves each bit of a bitstring right by one bit.
+N           The carry input is shifted in at the left end of the bitstring.
+N  \param [in]    value  Value to rotate
+N  \return               Rotated value
+N */
+N#ifndef __NO_EMBEDDED_ASM
+N__attribute__((section(".rrx_text"))) __STATIC_INLINE __ASM uint32_t __RRX(uint32_t value)
+X__attribute__((section(".rrx_text"))) static __inline __asm uint32_t __RRX(uint32_t value)
+N{
+N  rrx r0, r0
+N  bx lr
+N}
+N#endif
+N
+N
+N/**
+N  \brief   LDRT Unprivileged (8 bit)
+N  \details Executes a Unprivileged LDRT instruction for 8 bit value.
+N  \param [in]    ptr  Pointer to data
+N  \return             value of type uint8_t at (*ptr)
+N */
+N#define __LDRBT(ptr)                      ((uint8_t )  __ldrt(ptr))
+N
+N
+N/**
+N  \brief   LDRT Unprivileged (16 bit)
+N  \details Executes a Unprivileged LDRT instruction for 16 bit values.
+N  \param [in]    ptr  Pointer to data
+N  \return        value of type uint16_t at (*ptr)
+N */
+N#define __LDRHT(ptr)                      ((uint16_t)  __ldrt(ptr))
+N
+N
+N/**
+N  \brief   LDRT Unprivileged (32 bit)
+N  \details Executes a Unprivileged LDRT instruction for 32 bit values.
+N  \param [in]    ptr  Pointer to data
+N  \return        value of type uint32_t at (*ptr)
+N */
+N#define __LDRT(ptr)                       ((uint32_t ) __ldrt(ptr))
+N
+N
+N/**
+N  \brief   STRT Unprivileged (8 bit)
+N  \details Executes a Unprivileged STRT instruction for 8 bit values.
+N  \param [in]  value  Value to store
+N  \param [in]    ptr  Pointer to location
+N */
+N#define __STRBT(value, ptr)               __strt(value, ptr)
+N
+N
+N/**
+N  \brief   STRT Unprivileged (16 bit)
+N  \details Executes a Unprivileged STRT instruction for 16 bit values.
+N  \param [in]  value  Value to store
+N  \param [in]    ptr  Pointer to location
+N */
+N#define __STRHT(value, ptr)               __strt(value, ptr)
+N
+N
+N/**
+N  \brief   STRT Unprivileged (32 bit)
+N  \details Executes a Unprivileged STRT instruction for 32 bit values.
+N  \param [in]  value  Value to store
+N  \param [in]    ptr  Pointer to location
+N */
+N#define __STRT(value, ptr)                __strt(value, ptr)
+N
+N#else  /* ((defined (__ARM_ARCH_7M__ ) && (__ARM_ARCH_7M__  == 1)) || \
+N           (defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     ) */
+X#else   
+S
+S/**
+S  \brief   Signed Saturate
+S  \details Saturates a signed value.
+S  \param [in]  value  Value to be saturated
+S  \param [in]    sat  Bit position to saturate to (1..32)
+S  \return             Saturated value
+S */
+S__attribute__((always_inline)) __STATIC_INLINE int32_t __SSAT(int32_t val, uint32_t sat)
+S{
+S  if ((sat >= 1U) && (sat <= 32U))
+S  {
+S    const int32_t max = (int32_t)((1U << (sat - 1U)) - 1U);
+S    const int32_t min = -1 - max ;
+S    if (val > max)
+S    {
+S      return max;
+S    }
+S    else if (val < min)
+S    {
+S      return min;
+S    }
+S  }
+S  return val;
+S}
+S
+S/**
+S  \brief   Unsigned Saturate
+S  \details Saturates an unsigned value.
+S  \param [in]  value  Value to be saturated
+S  \param [in]    sat  Bit position to saturate to (0..31)
+S  \return             Saturated value
+S */
+S__attribute__((always_inline)) __STATIC_INLINE uint32_t __USAT(int32_t val, uint32_t sat)
+S{
+S  if (sat <= 31U)
+S  {
+S    const uint32_t max = ((1U << sat) - 1U);
+S    if (val > (int32_t)max)
+S    {
+S      return max;
+S    }
+S    else if (val < 0)
+S    {
+S      return 0U;
+S    }
+S  }
+S  return (uint32_t)val;
+S}
+S
+N#endif /* ((defined (__ARM_ARCH_7M__ ) && (__ARM_ARCH_7M__  == 1)) || \
+N           (defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     ) */
+X#endif  
+N
+N/*@}*/ /* end of group CMSIS_Core_InstructionInterface */
+N
+N
+N/* ###########################  Core Function Access  ########################### */
+N/** \ingroup  CMSIS_Core_FunctionInterface
+N    \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
+N  @{
+N */
+N
+N/**
+N  \brief   Enable IRQ Interrupts
+N  \details Enables IRQ interrupts by clearing special-purpose register PRIMASK.
+N           Can only be executed in Privileged modes.
+N */
+N/* intrinsic void __enable_irq();     */
+N
+N
+N/**
+N  \brief   Disable IRQ Interrupts
+N  \details Disables IRQ interrupts by setting special-purpose register PRIMASK.
+N           Can only be executed in Privileged modes.
+N */
+N/* intrinsic void __disable_irq();    */
+N
+N/**
+N  \brief   Get Control Register
+N  \details Returns the content of the Control Register.
+N  \return               Control Register value
+N */
+N__STATIC_INLINE uint32_t __get_CONTROL(void)
+Xstatic __inline uint32_t __get_CONTROL(void)
+N{
+N  register uint32_t __regControl         __ASM("control");
+X  register uint32_t __regControl         __asm("control");
+N  return(__regControl);
+N}
+N
+N
+N/**
+N  \brief   Set Control Register
+N  \details Writes the given value to the Control Register.
+N  \param [in]    control  Control Register value to set
+N */
+N__STATIC_INLINE void __set_CONTROL(uint32_t control)
+Xstatic __inline void __set_CONTROL(uint32_t control)
+N{
+N  register uint32_t __regControl         __ASM("control");
+X  register uint32_t __regControl         __asm("control");
+N  __regControl = control;
+N  __ISB();
+X  __isb(0xF);
+N}
+N
+N
+N/**
+N  \brief   Get IPSR Register
+N  \details Returns the content of the IPSR Register.
+N  \return               IPSR Register value
+N */
+N__STATIC_INLINE uint32_t __get_IPSR(void)
+Xstatic __inline uint32_t __get_IPSR(void)
+N{
+N  register uint32_t __regIPSR          __ASM("ipsr");
+X  register uint32_t __regIPSR          __asm("ipsr");
+N  return(__regIPSR);
+N}
+N
+N
+N/**
+N  \brief   Get APSR Register
+N  \details Returns the content of the APSR Register.
+N  \return               APSR Register value
+N */
+N__STATIC_INLINE uint32_t __get_APSR(void)
+Xstatic __inline uint32_t __get_APSR(void)
+N{
+N  register uint32_t __regAPSR          __ASM("apsr");
+X  register uint32_t __regAPSR          __asm("apsr");
+N  return(__regAPSR);
+N}
+N
+N
+N/**
+N  \brief   Get xPSR Register
+N  \details Returns the content of the xPSR Register.
+N  \return               xPSR Register value
+N */
+N__STATIC_INLINE uint32_t __get_xPSR(void)
+Xstatic __inline uint32_t __get_xPSR(void)
+N{
+N  register uint32_t __regXPSR          __ASM("xpsr");
+X  register uint32_t __regXPSR          __asm("xpsr");
+N  return(__regXPSR);
+N}
+N
+N
+N/**
+N  \brief   Get Process Stack Pointer
+N  \details Returns the current value of the Process Stack Pointer (PSP).
+N  \return               PSP Register value
+N */
+N__STATIC_INLINE uint32_t __get_PSP(void)
+Xstatic __inline uint32_t __get_PSP(void)
+N{
+N  register uint32_t __regProcessStackPointer  __ASM("psp");
+X  register uint32_t __regProcessStackPointer  __asm("psp");
+N  return(__regProcessStackPointer);
+N}
+N
+N
+N/**
+N  \brief   Set Process Stack Pointer
+N  \details Assigns the given value to the Process Stack Pointer (PSP).
+N  \param [in]    topOfProcStack  Process Stack Pointer value to set
+N */
+N__STATIC_INLINE void __set_PSP(uint32_t topOfProcStack)
+Xstatic __inline void __set_PSP(uint32_t topOfProcStack)
+N{
+N  register uint32_t __regProcessStackPointer  __ASM("psp");
+X  register uint32_t __regProcessStackPointer  __asm("psp");
+N  __regProcessStackPointer = topOfProcStack;
+N}
+N
+N
+N/**
+N  \brief   Get Main Stack Pointer
+N  \details Returns the current value of the Main Stack Pointer (MSP).
+N  \return               MSP Register value
+N */
+N__STATIC_INLINE uint32_t __get_MSP(void)
+Xstatic __inline uint32_t __get_MSP(void)
+N{
+N  register uint32_t __regMainStackPointer     __ASM("msp");
+X  register uint32_t __regMainStackPointer     __asm("msp");
+N  return(__regMainStackPointer);
+N}
+N
+N
+N/**
+N  \brief   Set Main Stack Pointer
+N  \details Assigns the given value to the Main Stack Pointer (MSP).
+N  \param [in]    topOfMainStack  Main Stack Pointer value to set
+N */
+N__STATIC_INLINE void __set_MSP(uint32_t topOfMainStack)
+Xstatic __inline void __set_MSP(uint32_t topOfMainStack)
+N{
+N  register uint32_t __regMainStackPointer     __ASM("msp");
+X  register uint32_t __regMainStackPointer     __asm("msp");
+N  __regMainStackPointer = topOfMainStack;
+N}
+N
+N
+N/**
+N  \brief   Get Priority Mask
+N  \details Returns the current state of the priority mask bit from the Priority Mask Register.
+N  \return               Priority Mask value
+N */
+N__STATIC_INLINE uint32_t __get_PRIMASK(void)
+Xstatic __inline uint32_t __get_PRIMASK(void)
+N{
+N  register uint32_t __regPriMask         __ASM("primask");
+X  register uint32_t __regPriMask         __asm("primask");
+N  return(__regPriMask);
+N}
+N
+N
+N/**
+N  \brief   Set Priority Mask
+N  \details Assigns the given value to the Priority Mask Register.
+N  \param [in]    priMask  Priority Mask
+N */
+N__STATIC_INLINE void __set_PRIMASK(uint32_t priMask)
+Xstatic __inline void __set_PRIMASK(uint32_t priMask)
+N{
+N  register uint32_t __regPriMask         __ASM("primask");
+X  register uint32_t __regPriMask         __asm("primask");
+N  __regPriMask = (priMask);
+N}
+N
+N
+N#if ((defined (__ARM_ARCH_7M__ ) && (__ARM_ARCH_7M__  == 1)) || \
+N     (defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     )
+X#if ((0L && (__ARM_ARCH_7M__  == 1)) ||      (1L && (1 == 1))     )
+N
+N/**
+N  \brief   Enable FIQ
+N  \details Enables FIQ interrupts by clearing special-purpose register FAULTMASK.
+N           Can only be executed in Privileged modes.
+N */
+N#define __enable_fault_irq                __enable_fiq
+N
+N
+N/**
+N  \brief   Disable FIQ
+N  \details Disables FIQ interrupts by setting special-purpose register FAULTMASK.
+N           Can only be executed in Privileged modes.
+N */
+N#define __disable_fault_irq               __disable_fiq
+N
+N
+N/**
+N  \brief   Get Base Priority
+N  \details Returns the current value of the Base Priority register.
+N  \return               Base Priority register value
+N */
+N__STATIC_INLINE uint32_t  __get_BASEPRI(void)
+Xstatic __inline uint32_t  __get_BASEPRI(void)
+N{
+N  register uint32_t __regBasePri         __ASM("basepri");
+X  register uint32_t __regBasePri         __asm("basepri");
+N  return(__regBasePri);
+N}
+N
+N
+N/**
+N  \brief   Set Base Priority
+N  \details Assigns the given value to the Base Priority register.
+N  \param [in]    basePri  Base Priority value to set
+N */
+N__STATIC_INLINE void __set_BASEPRI(uint32_t basePri)
+Xstatic __inline void __set_BASEPRI(uint32_t basePri)
+N{
+N  register uint32_t __regBasePri         __ASM("basepri");
+X  register uint32_t __regBasePri         __asm("basepri");
+N  __regBasePri = (basePri & 0xFFU);
+N}
+N
+N
+N/**
+N  \brief   Set Base Priority with condition
+N  \details Assigns the given value to the Base Priority register only if BASEPRI masking is disabled,
+N           or the new value increases the BASEPRI priority level.
+N  \param [in]    basePri  Base Priority value to set
+N */
+N__STATIC_INLINE void __set_BASEPRI_MAX(uint32_t basePri)
+Xstatic __inline void __set_BASEPRI_MAX(uint32_t basePri)
+N{
+N  register uint32_t __regBasePriMax      __ASM("basepri_max");
+X  register uint32_t __regBasePriMax      __asm("basepri_max");
+N  __regBasePriMax = (basePri & 0xFFU);
+N}
+N
+N
+N/**
+N  \brief   Get Fault Mask
+N  \details Returns the current value of the Fault Mask register.
+N  \return               Fault Mask register value
+N */
+N__STATIC_INLINE uint32_t __get_FAULTMASK(void)
+Xstatic __inline uint32_t __get_FAULTMASK(void)
+N{
+N  register uint32_t __regFaultMask       __ASM("faultmask");
+X  register uint32_t __regFaultMask       __asm("faultmask");
+N  return(__regFaultMask);
+N}
+N
+N
+N/**
+N  \brief   Set Fault Mask
+N  \details Assigns the given value to the Fault Mask register.
+N  \param [in]    faultMask  Fault Mask value to set
+N */
+N__STATIC_INLINE void __set_FAULTMASK(uint32_t faultMask)
+Xstatic __inline void __set_FAULTMASK(uint32_t faultMask)
+N{
+N  register uint32_t __regFaultMask       __ASM("faultmask");
+X  register uint32_t __regFaultMask       __asm("faultmask");
+N  __regFaultMask = (faultMask & (uint32_t)1U);
+N}
+N
+N#endif /* ((defined (__ARM_ARCH_7M__ ) && (__ARM_ARCH_7M__  == 1)) || \
+N           (defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     ) */
+X#endif  
+N
+N
+N/**
+N  \brief   Get FPSCR
+N  \details Returns the current value of the Floating Point Status/Control register.
+N  \return               Floating Point Status/Control register value
+N */
+N__STATIC_INLINE uint32_t __get_FPSCR(void)
+Xstatic __inline uint32_t __get_FPSCR(void)
+N{
+N#if ((defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && \
+N     (defined (__FPU_USED   ) && (__FPU_USED    == 1U))     )
+X#if ((0L && (__FPU_PRESENT == 1U)) &&      (0L && (__FPU_USED    == 1U))     )
+S  register uint32_t __regfpscr         __ASM("fpscr");
+S  return(__regfpscr);
+N#else
+N   return(0U);
+N#endif
+N}
+N
+N
+N/**
+N  \brief   Set FPSCR
+N  \details Assigns the given value to the Floating Point Status/Control register.
+N  \param [in]    fpscr  Floating Point Status/Control value to set
+N */
+N__STATIC_INLINE void __set_FPSCR(uint32_t fpscr)
+Xstatic __inline void __set_FPSCR(uint32_t fpscr)
+N{
+N#if ((defined (__FPU_PRESENT) && (__FPU_PRESENT == 1U)) && \
+N     (defined (__FPU_USED   ) && (__FPU_USED    == 1U))     )
+X#if ((0L && (__FPU_PRESENT == 1U)) &&      (0L && (__FPU_USED    == 1U))     )
+S  register uint32_t __regfpscr         __ASM("fpscr");
+S  __regfpscr = (fpscr);
+N#else
+N  (void)fpscr;
+N#endif
+N}
+N
+N
+N/*@} end of CMSIS_Core_RegAccFunctions */
+N
+N
+N/* ###################  Compiler specific Intrinsics  ########################### */
+N/** \defgroup CMSIS_SIMD_intrinsics CMSIS SIMD Intrinsics
+N  Access to dedicated SIMD instructions
+N  @{
+N*/
+N
+N#if ((defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     )
+X#if ((1L && (1 == 1))     )
+N
+N#define __SADD8                           __sadd8
+N#define __QADD8                           __qadd8
+N#define __SHADD8                          __shadd8
+N#define __UADD8                           __uadd8
+N#define __UQADD8                          __uqadd8
+N#define __UHADD8                          __uhadd8
+N#define __SSUB8                           __ssub8
+N#define __QSUB8                           __qsub8
+N#define __SHSUB8                          __shsub8
+N#define __USUB8                           __usub8
+N#define __UQSUB8                          __uqsub8
+N#define __UHSUB8                          __uhsub8
+N#define __SADD16                          __sadd16
+N#define __QADD16                          __qadd16
+N#define __SHADD16                         __shadd16
+N#define __UADD16                          __uadd16
+N#define __UQADD16                         __uqadd16
+N#define __UHADD16                         __uhadd16
+N#define __SSUB16                          __ssub16
+N#define __QSUB16                          __qsub16
+N#define __SHSUB16                         __shsub16
+N#define __USUB16                          __usub16
+N#define __UQSUB16                         __uqsub16
+N#define __UHSUB16                         __uhsub16
+N#define __SASX                            __sasx
+N#define __QASX                            __qasx
+N#define __SHASX                           __shasx
+N#define __UASX                            __uasx
+N#define __UQASX                           __uqasx
+N#define __UHASX                           __uhasx
+N#define __SSAX                            __ssax
+N#define __QSAX                            __qsax
+N#define __SHSAX                           __shsax
+N#define __USAX                            __usax
+N#define __UQSAX                           __uqsax
+N#define __UHSAX                           __uhsax
+N#define __USAD8                           __usad8
+N#define __USADA8                          __usada8
+N#define __SSAT16                          __ssat16
+N#define __USAT16                          __usat16
+N#define __UXTB16                          __uxtb16
+N#define __UXTAB16                         __uxtab16
+N#define __SXTB16                          __sxtb16
+N#define __SXTAB16                         __sxtab16
+N#define __SMUAD                           __smuad
+N#define __SMUADX                          __smuadx
+N#define __SMLAD                           __smlad
+N#define __SMLADX                          __smladx
+N#define __SMLALD                          __smlald
+N#define __SMLALDX                         __smlaldx
+N#define __SMUSD                           __smusd
+N#define __SMUSDX                          __smusdx
+N#define __SMLSD                           __smlsd
+N#define __SMLSDX                          __smlsdx
+N#define __SMLSLD                          __smlsld
+N#define __SMLSLDX                         __smlsldx
+N#define __SEL                             __sel
+N#define __QADD                            __qadd
+N#define __QSUB                            __qsub
+N
+N#define __PKHBT(ARG1,ARG2,ARG3)          ( ((((uint32_t)(ARG1))          ) & 0x0000FFFFUL) |  \
+N                                           ((((uint32_t)(ARG2)) << (ARG3)) & 0xFFFF0000UL)  )
+X#define __PKHBT(ARG1,ARG2,ARG3)          ( ((((uint32_t)(ARG1))          ) & 0x0000FFFFUL) |                                             ((((uint32_t)(ARG2)) << (ARG3)) & 0xFFFF0000UL)  )
+N
+N#define __PKHTB(ARG1,ARG2,ARG3)          ( ((((uint32_t)(ARG1))          ) & 0xFFFF0000UL) |  \
+N                                           ((((uint32_t)(ARG2)) >> (ARG3)) & 0x0000FFFFUL)  )
+X#define __PKHTB(ARG1,ARG2,ARG3)          ( ((((uint32_t)(ARG1))          ) & 0xFFFF0000UL) |                                             ((((uint32_t)(ARG2)) >> (ARG3)) & 0x0000FFFFUL)  )
+N
+N#define __SMMLA(ARG1,ARG2,ARG3)          ( (int32_t)((((int64_t)(ARG1) * (ARG2)) + \
+N                                                      ((int64_t)(ARG3) << 32U)     ) >> 32U))
+X#define __SMMLA(ARG1,ARG2,ARG3)          ( (int32_t)((((int64_t)(ARG1) * (ARG2)) +                                                       ((int64_t)(ARG3) << 32U)     ) >> 32U))
+N
+N#define __SXTB16_RORn(ARG1, ARG2)        __SXTB16(__ROR(ARG1, ARG2))
+N
+N#define __SXTAB16_RORn(ARG1, ARG2, ARG3) __SXTAB16(ARG1, __ROR(ARG2, ARG3))
+N
+N#endif /* ((defined (__ARM_ARCH_7EM__) && (__ARM_ARCH_7EM__ == 1))     ) */
+N/*@} end of group CMSIS_SIMD_intrinsics */
+N
+N
+N#endif /* __CMSIS_ARMCC_H */
+L 35 "C:\Users\qizha\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include\cmsis_compiler.h" 2
+N
+N
+N/*
+N * Arm Compiler 6.6 LTM (armclang)
+N */
+N#elif defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050) && (__ARMCC_VERSION < 6100100)
+X#elif 1L && (5060960 >= 6010050) && (5060960 < 6100100)
+S  #include "cmsis_armclang_ltm.h"
+S
+S  /*
+S * Arm Compiler above 6.10.1 (armclang)
+S */
+S#elif defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6100100)
+S  #include "cmsis_armclang.h"
+S
+S
+S/*
+S * GNU Compiler
+S */
+S#elif defined ( __GNUC__ )
+S  #include "cmsis_gcc.h"
+S
+S
+S/*
+S * IAR Compiler
+S */
+S#elif defined ( __ICCARM__ )
+S  #include <cmsis_iccarm.h>
+S
+S
+S/*
+S * TI Arm Compiler
+S */
+S#elif defined ( __TI_ARM__ )
+S  #include <cmsis_ccs.h>
+S
+S  #ifndef   __ASM
+S    #define __ASM                                  __asm
+S  #endif
+S  #ifndef   __INLINE
+S    #define __INLINE                               inline
+S  #endif
+S  #ifndef   __STATIC_INLINE
+S    #define __STATIC_INLINE                        static inline
+S  #endif
+S  #ifndef   __STATIC_FORCEINLINE
+S    #define __STATIC_FORCEINLINE                   __STATIC_INLINE
+S  #endif
+S  #ifndef   __NO_RETURN
+S    #define __NO_RETURN                            __attribute__((noreturn))
+S  #endif
+S  #ifndef   __USED
+S    #define __USED                                 __attribute__((used))
+S  #endif
+S  #ifndef   __WEAK
+S    #define __WEAK                                 __attribute__((weak))
+S  #endif
+S  #ifndef   __PACKED
+S    #define __PACKED                               __attribute__((packed))
+S  #endif
+S  #ifndef   __PACKED_STRUCT
+S    #define __PACKED_STRUCT                        struct __attribute__((packed))
+S  #endif
+S  #ifndef   __PACKED_UNION
+S    #define __PACKED_UNION                         union __attribute__((packed))
+S  #endif
+S  #ifndef   __UNALIGNED_UINT32        /* deprecated */
+S    struct __attribute__((packed)) T_UINT32 { uint32_t v; };
+S    #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
+S  #endif
+S  #ifndef   __UNALIGNED_UINT16_WRITE
+S    __PACKED_STRUCT T_UINT16_WRITE { uint16_t v; };
+S    #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void*)(addr))->v) = (val))
+S  #endif
+S  #ifndef   __UNALIGNED_UINT16_READ
+S    __PACKED_STRUCT T_UINT16_READ { uint16_t v; };
+S    #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(addr))->v)
+S  #endif
+S  #ifndef   __UNALIGNED_UINT32_WRITE
+S    __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
+S    #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))->v) = (val))
+S  #endif
+S  #ifndef   __UNALIGNED_UINT32_READ
+S    __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
+S    #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(addr))->v)
+S  #endif
+S  #ifndef   __ALIGNED
+S    #define __ALIGNED(x)                           __attribute__((aligned(x)))
+S  #endif
+S  #ifndef   __RESTRICT
+S    #define __RESTRICT                             __restrict
+S  #endif
+S  #ifndef   __COMPILER_BARRIER
+S    #warning No compiler specific solution for __COMPILER_BARRIER. __COMPILER_BARRIER is ignored.
+S    #define __COMPILER_BARRIER()                   (void)0
+S  #endif
+S
+S
+S/*
+S * TASKING Compiler
+S */
+S#elif defined ( __TASKING__ )
+S  /*
+S   * The CMSIS functions have been implemented as intrinsics in the compiler.
+S   * Please use "carm -?i" to get an up to date list of all intrinsics,
+S   * Including the CMSIS ones.
+S   */
+S
+S  #ifndef   __ASM
+S    #define __ASM                                  __asm
+S  #endif
+S  #ifndef   __INLINE
+S    #define __INLINE                               inline
+S  #endif
+S  #ifndef   __STATIC_INLINE
+S    #define __STATIC_INLINE                        static inline
+S  #endif
+S  #ifndef   __STATIC_FORCEINLINE
+S    #define __STATIC_FORCEINLINE                   __STATIC_INLINE
+S  #endif
+S  #ifndef   __NO_RETURN
+S    #define __NO_RETURN                            __attribute__((noreturn))
+S  #endif
+S  #ifndef   __USED
+S    #define __USED                                 __attribute__((used))
+S  #endif
+S  #ifndef   __WEAK
+S    #define __WEAK                                 __attribute__((weak))
+S  #endif
+S  #ifndef   __PACKED
+S    #define __PACKED                               __packed__
+S  #endif
+S  #ifndef   __PACKED_STRUCT
+S    #define __PACKED_STRUCT                        struct __packed__
+S  #endif
+S  #ifndef   __PACKED_UNION
+S    #define __PACKED_UNION                         union __packed__
+S  #endif
+S  #ifndef   __UNALIGNED_UINT32        /* deprecated */
+S    struct __packed__ T_UINT32 { uint32_t v; };
+S    #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
+S  #endif
+S  #ifndef   __UNALIGNED_UINT16_WRITE
+S    __PACKED_STRUCT T_UINT16_WRITE { uint16_t v; };
+S    #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void *)(addr))->v) = (val))
+S  #endif
+S  #ifndef   __UNALIGNED_UINT16_READ
+S    __PACKED_STRUCT T_UINT16_READ { uint16_t v; };
+S    #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(addr))->v)
+S  #endif
+S  #ifndef   __UNALIGNED_UINT32_WRITE
+S    __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
+S    #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))->v) = (val))
+S  #endif
+S  #ifndef   __UNALIGNED_UINT32_READ
+S    __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
+S    #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(addr))->v)
+S  #endif
+S  #ifndef   __ALIGNED
+S    #define __ALIGNED(x)              __align(x)
+S  #endif
+S  #ifndef   __RESTRICT
+S    #warning No compiler specific solution for __RESTRICT. __RESTRICT is ignored.
+S    #define __RESTRICT
+S  #endif
+S  #ifndef   __COMPILER_BARRIER
+S    #warning No compiler specific solution for __COMPILER_BARRIER. __COMPILER_BARRIER is ignored.
+S    #define __COMPILER_BARRIER()                   (void)0
+S  #endif
+S
+S
+S/*
+S * COSMIC Compiler
+S */
+S#elif defined ( __CSMC__ )
+S   #include <cmsis_csm.h>
+S
+S #ifndef   __ASM
+S    #define __ASM                                  _asm
+S  #endif
+S  #ifndef   __INLINE
+S    #define __INLINE                               inline
+S  #endif
+S  #ifndef   __STATIC_INLINE
+S    #define __STATIC_INLINE                        static inline
+S  #endif
+S  #ifndef   __STATIC_FORCEINLINE
+S    #define __STATIC_FORCEINLINE                   __STATIC_INLINE
+S  #endif
+S  #ifndef   __NO_RETURN
+S    // NO RETURN is automatically detected hence no warning here
+S    #define __NO_RETURN
+S  #endif
+S  #ifndef   __USED
+S    #warning No compiler specific solution for __USED. __USED is ignored.
+S    #define __USED
+S  #endif
+S  #ifndef   __WEAK
+S    #define __WEAK                                 __weak
+S  #endif
+S  #ifndef   __PACKED
+S    #define __PACKED                               @packed
+S  #endif
+S  #ifndef   __PACKED_STRUCT
+S    #define __PACKED_STRUCT                        @packed struct
+S  #endif
+S  #ifndef   __PACKED_UNION
+S    #define __PACKED_UNION                         @packed union
+S  #endif
+S  #ifndef   __UNALIGNED_UINT32        /* deprecated */
+S    @packed struct T_UINT32 { uint32_t v; };
+S    #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
+S  #endif
+S  #ifndef   __UNALIGNED_UINT16_WRITE
+S    __PACKED_STRUCT T_UINT16_WRITE { uint16_t v; };
+S    #define __UNALIGNED_UINT16_WRITE(addr, val)    (void)((((struct T_UINT16_WRITE *)(void *)(addr))->v) = (val))
+S  #endif
+S  #ifndef   __UNALIGNED_UINT16_READ
+S    __PACKED_STRUCT T_UINT16_READ { uint16_t v; };
+S    #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(addr))->v)
+S  #endif
+S  #ifndef   __UNALIGNED_UINT32_WRITE
+S    __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
+S    #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))->v) = (val))
+S  #endif
+S  #ifndef   __UNALIGNED_UINT32_READ
+S    __PACKED_STRUCT T_UINT32_READ { uint32_t v; };
+S    #define __UNALIGNED_UINT32_READ(addr)          (((const struct T_UINT32_READ *)(const void *)(addr))->v)
+S  #endif
+S  #ifndef   __ALIGNED
+S    #warning No compiler specific solution for __ALIGNED. __ALIGNED is ignored.
+S    #define __ALIGNED(x)
+S  #endif
+S  #ifndef   __RESTRICT
+S    #warning No compiler specific solution for __RESTRICT. __RESTRICT is ignored.
+S    #define __RESTRICT
+S  #endif
+S  #ifndef   __COMPILER_BARRIER
+S    #warning No compiler specific solution for __COMPILER_BARRIER. __COMPILER_BARRIER is ignored.
+S    #define __COMPILER_BARRIER()                   (void)0
+S  #endif
+S
+S
+S#else
+S  #error Unknown compiler.
+N#endif
+N
+N
+N#endif /* __CMSIS_COMPILER_H */
+N
+L 25 "C:/Users/qizha/AppData/Local/Arm/Packs/GorgonMeducer/perf_counter/2.2.3/perf_counter.c" 2
+N
+N#define __IMPLEMENT_PERF_COUNTER
+N#include "perf_counter.h"
+L 1 "C:/Users/qizha/AppData/Local/Arm/Packs/GorgonMeducer/perf_counter/2.2.3/perf_counter.h" 1
+N/****************************************************************************
+N*  Copyright 2022 Gorgon Meducer (Email:embedded_zhuoran@hotmail.com)       *
+N*                                                                           *
+N*  Licensed under the Apache License, Version 2.0 (the "License");          *
+N*  you may not use this file except in compliance with the License.         *
+N*  You may obtain a copy of the License at                                  *
+N*                                                                           *
+N*     http://www.apache.org/licenses/LICENSE-2.0                            *
+N*                                                                           *
+N*  Unless required by applicable law or agreed to in writing, software      *
+N*  distributed under the License is distributed on an "AS IS" BASIS,        *
+N*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+N*  See the License for the specific language governing permissions and      *
+N*  limitations under the License.                                           *
+N*                                                                           *
+N****************************************************************************/
+N
+N#ifndef __PERFORMANCE_COUNTER_H__
+N#define __PERFORMANCE_COUNTER_H__
+N
+N/*============================ INCLUDES ======================================*/
+N#include <stdbool.h>
+N#include <stdint.h>
+N#include <stddef.h>
+L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h" 1
+N/* stddef.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.1.4 */
+N
+N/* Copyright (C) ARM Ltd., 1999
+N * All rights reserved
+N * RCS $Revision$
+N * Checkin $Date$
+N * Revising $Author: agrant $
+N */
+N
+N/* Copyright (C) Codemist Ltd., 1988                            */
+N/* Copyright 1991 ARM Limited. All rights reserved.             */
+N/* version 0.05 */
+N
+N/*
+N * The following types and macros are defined in several headers referred to in
+N * the descriptions of the functions declared in that header. They are also
+N * defined in this header file.
+N */
+N
+N#ifndef __stddef_h
+N#define __stddef_h
+N#define __ARMCLIB_VERSION 5060044
+N
+N  #ifndef __STDDEF_DECLS
+N  #define __STDDEF_DECLS
+N    #undef __CLIBNS
+N    #ifdef __cplusplus
+S        namespace std {
+S        #define __CLIBNS ::std::
+S        extern "C" {
+N    #else
+N      #define __CLIBNS
+N    #endif  /* __cplusplus */
+N
+N#if __sizeof_ptr == 8
+X#if 4 == 8
+S  typedef signed long ptrdiff_t;
+N#else
+N  typedef signed int ptrdiff_t;
+N#endif
+N
+N#if defined(__cplusplus) || !defined(__STRICT_ANSI__)
+X#if 0L || !0L
+N /* unconditional in C++ and non-strict C for consistency of debug info */
+N  #if __sizeof_ptr == 8
+X  #if 4 == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+N  #else
+N    typedef unsigned int size_t;   /* see <stddef.h> */
+N  #endif
+N#elif !defined(__size_t)
+X#elif !0L
+S  #define __size_t 1
+S  #if __sizeof_ptr == 8
+S    typedef unsigned long size_t;   /* see <stddef.h> */
+S  #else
+S    typedef unsigned int size_t;   /* see <stddef.h> */
+S  #endif
+S   /* the unsigned integral type of the result of the sizeof operator. */
+N#endif
+N
+N#ifndef __cplusplus  /* wchar_t is a builtin type for C++ */
+N  #if !defined(__STRICT_ANSI__)
+X  #if !0L
+N  /* unconditional in non-strict C for consistency of debug info */
+N    #if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+X    #if 0L || (0L && __ARM_SIZEOF_WCHAR_T == 4)
+S      typedef unsigned int wchar_t; /* also in <stdlib.h> and <inttypes.h> */
+N    #else
+N      typedef unsigned short wchar_t; /* also in <stdlib.h> and <inttypes.h> */
+N    #endif
+N  #elif !defined(__wchar_t)
+X  #elif !0L
+S    #define __wchar_t 1
+S    #if defined(__WCHAR32) || (defined(__ARM_SIZEOF_WCHAR_T) && __ARM_SIZEOF_WCHAR_T == 4)
+S      typedef unsigned int wchar_t; /* also in <stdlib.h> and <inttypes.h> */
+S    #else
+S      typedef unsigned short wchar_t; /* also in <stdlib.h> and <inttypes.h> */
+S    #endif
+S   /*
+S    * An integral type whose range of values can represent distinct codes for
+S    * all members of the largest extended character set specified among the
+S    * supported locales; the null character shall have the code value zero and
+S    * each member of the basic character set shall have a code value when used
+S    * as the lone character in an integer character constant.
+S    */
+N  #endif
+N#endif
+N
+N#undef NULL  /* others (e.g. <stdio.h>) also define */
+N#define NULL 0
+N   /* null pointer constant. */
+N
+N#ifdef __clang__
+S  #define offsetof(t, d) __builtin_offsetof(t, d)
+N#else
+N  /* EDG uses __INTADDR__ to avoid errors when strict */
+N  #define offsetof(t, memb) ((__CLIBNS size_t)__INTADDR__(&(((t *)0)->memb)))
+N#endif
+N
+N#if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && 201112L <= __STDC_VERSION__) || (defined(__cplusplus) && 201103L <= __cplusplus)
+X#if !0L || (1L && 201112L <= 199901L) || (0L && 201103L <= __cplusplus)
+N  typedef long double max_align_t;
+N#endif
+N
+N    #ifdef __cplusplus
+S         }  /* extern "C" */
+S      }  /* namespace std */
+N    #endif /* __cplusplus */
+N  #endif /* __STDDEF_DECLS */
+N
+N
+N  #ifdef __cplusplus
+S    #ifndef __STDDEF_NO_EXPORTS
+S      using ::std::size_t;
+S      using ::std::ptrdiff_t;
+S      #if !defined(__STRICT_ANSI__) || (defined(__cplusplus) && 201103L <= __cplusplus)
+S        using ::std::max_align_t;
+S      #endif
+S    #endif 
+N  #endif /* __cplusplus */
+N
+N#endif
+N
+N/* end of stddef.h */
+N
+L 25 "C:/Users/qizha/AppData/Local/Arm/Packs/GorgonMeducer/perf_counter/2.2.3/perf_counter.h" 2
+N#include "cmsis_compiler.h"
+N
+N#ifdef __cplusplus
+Sextern "C" {
+N#endif
+N/*============================ MACROS ========================================*/
+N
+N/*!
+N * \addtogroup gBasic 1 Basic
+N * @{
+N */
+N#define __PERF_COUNTER_VER_MAJOR__          2
+N#define __PERF_COUNTER_VER_MINOR__          2
+N#define __PERF_COUNTER_VER_REVISE__         3
+N
+N#define __PERF_COUNTER_VER_STR__            ""
+N
+N#define __PER_COUNTER_VER__    (__PERF_COUNTER_VER_MAJOR__ * 10000ul            \
+N                               +__PERF_COUNTER_VER_MINOR__ * 100ul              \
+N                               +__PERF_COUNTER_VER_REVISE__)
+X#define __PER_COUNTER_VER__    (__PERF_COUNTER_VER_MAJOR__ * 10000ul                                           +__PERF_COUNTER_VER_MINOR__ * 100ul                                             +__PERF_COUNTER_VER_REVISE__)
+N
+N
+N/*! @} */
+N
+N/*!
+N * \addtogroup gHelper 4 Helper
+N * @{
+N */
+N
+N// for IAR
+N#undef __IS_COMPILER_IAR__
+N#if defined(__IAR_SYSTEMS_ICC__)
+X#if 0L
+S#   define __IS_COMPILER_IAR__                  1
+N#endif
+N
+N// for arm compiler 5
+N#undef __IS_COMPILER_ARM_COMPILER_5__
+N#if ((__ARMCC_VERSION >= 5000000) && (__ARMCC_VERSION < 6000000))
+X#if ((5060960 >= 5000000) && (5060960 < 6000000))
+N#   define __IS_COMPILER_ARM_COMPILER_5__       1
+N#endif
+N
+N
+N//for arm compiler 6
+N
+N#undef __IS_COMPILER_ARM_COMPILER_6__
+N#if defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+X#if 1L && (5060960 >= 6010050)
+S#   define __IS_COMPILER_ARM_COMPILER_6__       1
+N#endif
+N#undef __IS_COMPILER_ARM_COMPILER__
+N#if defined(__IS_COMPILER_ARM_COMPILER_5__) && __IS_COMPILER_ARM_COMPILER_5__   \
+N||  defined(__IS_COMPILER_ARM_COMPILER_6__) && __IS_COMPILER_ARM_COMPILER_6__
+X#if 1L && 1   ||  0L && __IS_COMPILER_ARM_COMPILER_6__
+N#   define __IS_COMPILER_ARM_COMPILER__         1
+N#endif
+N
+N// for clang
+N#undef  __IS_COMPILER_LLVM__
+N#if defined(__clang__) && !__IS_COMPILER_ARM_COMPILER_6__
+X#if 0L && !__IS_COMPILER_ARM_COMPILER_6__
+S#   define __IS_COMPILER_LLVM__                 1
+N#else
+N
+N// for gcc
+N#   undef __IS_COMPILER_GCC__
+N#   if defined(__GNUC__) && !(  defined(__IS_COMPILER_ARM_COMPILER__)           \
+N                            ||  defined(__IS_COMPILER_LLVM__)                   \
+N                            ||  defined(__IS_COMPILER_IAR__))
+X#   if 1L && !(  1L                                       ||  0L                                               ||  0L)
+S#       define __IS_COMPILER_GCC__              1
+N#   endif
+N
+N#endif
+N
+N
+N#ifdef __PERF_COUNT_PLATFORM_SPECIFIC_HEADER__
+S#   include __PERF_COUNT_PLATFORM_SPECIFIC_HEADER__
+N#endif
+N
+N#if defined(__clang__)
+X#if 0L
+S#   pragma clang diagnostic push
+S#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+S#   pragma clang diagnostic ignored "-Wreserved-identifier"
+S#   pragma clang diagnostic ignored "-Wdeclaration-after-statement"
+S#   pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+S#   pragma clang diagnostic ignored "-Wgnu-statement-expression"
+S#   pragma clang diagnostic ignored "-Wunused-but-set-variable"
+S#   pragma clang diagnostic ignored "-Wshadow"
+S#   pragma clang diagnostic ignored "-Wshorten-64-to-32"
+S#   pragma clang diagnostic ignored "-Wcompound-token-split-by-macro"
+N#elif defined(__IS_COMPILER_ARM_COMPILER_5__)
+X#elif 1L
+N#   pragma diag_suppress 550
+N#elif defined(__IS_COMPILER_GCC__)
+X#elif 0L
+S#   pragma GCC diagnostic push
+S#   pragma GCC diagnostic ignored "-Wpedantic"
+S#   pragma GCC diagnostic ignored "-Wunused-variable"
+S#   pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+S#   pragma GCC diagnostic ignored "-Wformat="
+N#endif
+N
+N#ifndef __PLOOC_VA_NUM_ARGS_IMPL
+N#   define __PLOOC_VA_NUM_ARGS_IMPL( _0,_1,_2,_3,_4,_5,_6,_7,_8,_9,_10,_11,     \
+N                                    _12,_13,_14,_15,_16,__N,...)      __N
+X#   define __PLOOC_VA_NUM_ARGS_IMPL( _0,_1,_2,_3,_4,_5,_6,_7,_8,_9,_10,_11,                                         _12,_13,_14,_15,_16,__N,...)      __N
+N#endif
+N
+N#ifndef __PLOOC_VA_NUM_ARGS
+N#define __PLOOC_VA_NUM_ARGS(...)                                                \
+N            __PLOOC_VA_NUM_ARGS_IMPL( 0,##__VA_ARGS__,16,15,14,13,12,11,10,9,   \
+N                                      8,7,6,5,4,3,2,1,0)
+X#define __PLOOC_VA_NUM_ARGS(...)                                                            __PLOOC_VA_NUM_ARGS_IMPL( 0,##__VA_ARGS__,16,15,14,13,12,11,10,9,                                         8,7,6,5,4,3,2,1,0)
+N#endif
+N
+N#ifndef UNUSED_PARAM
+N#   define UNUSED_PARAM(__VAR)     (void)(__VAR)
+N#endif
+N
+N#undef __CONNECT2
+N#undef __CONNECT3
+N#undef __CONNECT4
+N#undef __CONNECT5
+N#undef __CONNECT6
+N#undef __CONNECT7
+N#undef __CONNECT8
+N#undef __CONNECT9
+N
+N#undef CONNECT2
+N#undef CONNECT3
+N#undef CONNECT4
+N#undef CONNECT5
+N#undef CONNECT6
+N#undef CONNECT7
+N#undef CONNECT8
+N#undef CONNECT9
+N
+N#undef CONNECT
+N
+N#undef __MACRO_EXPANDING
+N#define __MACRO_EXPANDING(...)                      __VA_ARGS__
+N
+N#define __CONNECT2(__A, __B)                        __A##__B
+N#define __CONNECT3(__A, __B, __C)                   __A##__B##__C
+N#define __CONNECT4(__A, __B, __C, __D)              __A##__B##__C##__D
+N#define __CONNECT5(__A, __B, __C, __D, __E)         __A##__B##__C##__D##__E
+N#define __CONNECT6(__A, __B, __C, __D, __E, __F)    __A##__B##__C##__D##__E##__F
+N#define __CONNECT7(__A, __B, __C, __D, __E, __F, __G)                           \
+N                                                    __A##__B##__C##__D##__E##__F##__G
+X#define __CONNECT7(__A, __B, __C, __D, __E, __F, __G)                                                                               __A##__B##__C##__D##__E##__F##__G
+N#define __CONNECT8(__A, __B, __C, __D, __E, __F, __G, __H)                      \
+N                                                    __A##__B##__C##__D##__E##__F##__G##__H
+X#define __CONNECT8(__A, __B, __C, __D, __E, __F, __G, __H)                                                                          __A##__B##__C##__D##__E##__F##__G##__H
+N#define __CONNECT9(__A, __B, __C, __D, __E, __F, __G, __H, __I)                 \
+N                                                    __A##__B##__C##__D##__E##__F##__G##__H##__I
+X#define __CONNECT9(__A, __B, __C, __D, __E, __F, __G, __H, __I)                                                                     __A##__B##__C##__D##__E##__F##__G##__H##__I
+N
+N#define ALT_CONNECT2(__A, __B)              __CONNECT2(__A, __B)
+N#define CONNECT2(__A, __B)                  __CONNECT2(__A, __B)
+N#define CONNECT3(__A, __B, __C)             __CONNECT3(__A, __B, __C)
+N#define CONNECT4(__A, __B, __C, __D)        __CONNECT4(__A, __B, __C, __D)
+N#define CONNECT5(__A, __B, __C, __D, __E)   __CONNECT5(__A, __B, __C, __D, __E)
+N#define CONNECT6(__A, __B, __C, __D, __E, __F)                                  \
+N                                            __CONNECT6(__A, __B, __C, __D, __E, __F)
+X#define CONNECT6(__A, __B, __C, __D, __E, __F)                                                                              __CONNECT6(__A, __B, __C, __D, __E, __F)
+N#define CONNECT7(__A, __B, __C, __D, __E, __F, __G)                             \
+N                                            __CONNECT7(__A, __B, __C, __D, __E, __F, __G)
+X#define CONNECT7(__A, __B, __C, __D, __E, __F, __G)                                                                         __CONNECT7(__A, __B, __C, __D, __E, __F, __G)
+N#define CONNECT8(__A, __B, __C, __D, __E, __F, __G, __H)                        \
+N                                            __CONNECT8(__A, __B, __C, __D, __E, __F, __G, __H)
+X#define CONNECT8(__A, __B, __C, __D, __E, __F, __G, __H)                                                                    __CONNECT8(__A, __B, __C, __D, __E, __F, __G, __H)
+N#define CONNECT9(__A, __B, __C, __D, __E, __F, __G, __H, __I)                   \
+N                                            __CONNECT9(__A, __B, __C, __D, __E, __F, __G, __H, __I)
+X#define CONNECT9(__A, __B, __C, __D, __E, __F, __G, __H, __I)                                                               __CONNECT9(__A, __B, __C, __D, __E, __F, __G, __H, __I)
+N
+N#define CONNECT(...)                                                            \
+N            ALT_CONNECT2(CONNECT, __PLOOC_VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__)
+X#define CONNECT(...)                                                                        ALT_CONNECT2(CONNECT, __PLOOC_VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__)
+N
+N#undef __using1
+N#undef __using2
+N#undef __using3
+N#undef __using4
+N#undef using
+N
+N#define __using1(__declare)                                                     \
+N            for (__declare, *CONNECT3(__using_, __LINE__,_ptr) = NULL;          \
+N                 CONNECT3(__using_, __LINE__,_ptr)++ == NULL;                   \
+N                )
+X#define __using1(__declare)                                                                 for (__declare, *CONNECT3(__using_, __LINE__,_ptr) = NULL;                           CONNECT3(__using_, __LINE__,_ptr)++ == NULL;                                   )
+N
+N#define __using2(__declare, __on_leave_expr)                                    \
+N            for (__declare, *CONNECT3(__using_, __LINE__,_ptr) = NULL;          \
+N                 CONNECT3(__using_, __LINE__,_ptr)++ == NULL;                   \
+N                 (__on_leave_expr)                                              \
+N                )
+X#define __using2(__declare, __on_leave_expr)                                                for (__declare, *CONNECT3(__using_, __LINE__,_ptr) = NULL;                           CONNECT3(__using_, __LINE__,_ptr)++ == NULL;                                    (__on_leave_expr)                                                              )
+N
+N#define __using3(__declare, __on_enter_expr, __on_leave_expr)                   \
+N            for (__declare, *CONNECT3(__using_, __LINE__,_ptr) = NULL;          \
+N                 CONNECT3(__using_, __LINE__,_ptr)++ == NULL ?                  \
+N                    ((__on_enter_expr),1) : 0;                                  \
+N                 (__on_leave_expr)                                              \
+N                )
+X#define __using3(__declare, __on_enter_expr, __on_leave_expr)                               for (__declare, *CONNECT3(__using_, __LINE__,_ptr) = NULL;                           CONNECT3(__using_, __LINE__,_ptr)++ == NULL ?                                      ((__on_enter_expr),1) : 0;                                                   (__on_leave_expr)                                                              )
+N
+N#define __using4(__dcl1, __dcl2, __on_enter_expr, __on_leave_expr)              \
+N            for (__dcl1, __dcl2, *CONNECT3(__using_, __LINE__,_ptr) = NULL;     \
+N                 CONNECT3(__using_, __LINE__,_ptr)++ == NULL ?                  \
+N                    ((__on_enter_expr),1) : 0;                                  \
+N                 (__on_leave_expr)                                              \
+N                )
+X#define __using4(__dcl1, __dcl2, __on_enter_expr, __on_leave_expr)                          for (__dcl1, __dcl2, *CONNECT3(__using_, __LINE__,_ptr) = NULL;                      CONNECT3(__using_, __LINE__,_ptr)++ == NULL ?                                      ((__on_enter_expr),1) : 0;                                                   (__on_leave_expr)                                                              )
+N
+N#define using(...)                                                              \
+N                CONNECT2(__using, __PLOOC_VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__)
+X#define using(...)                                                                              CONNECT2(__using, __PLOOC_VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__)
+N
+N
+N#undef __with2
+N#undef __with3
+N#undef with
+N
+N#define __with2(__type, __addr)                                                 \
+N            using(__type *_=(__addr))
+X#define __with2(__type, __addr)                                                             using(__type *_=(__addr))
+N#define __with3(__type, __addr, __item)                                         \
+N            using(__type *_=(__addr), *__item = _, _=_,_=_ )
+X#define __with3(__type, __addr, __item)                                                     using(__type *_=(__addr), *__item = _, _=_,_=_ )
+N
+N#define with(...)                                                               \
+N            CONNECT2(__with, __PLOOC_VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__)
+X#define with(...)                                                                           CONNECT2(__with, __PLOOC_VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__)
+N
+N#undef _
+N
+N#ifndef dimof
+N#   define dimof(__array)          (sizeof(__array)/sizeof(__array[0]))
+N#endif
+N
+N
+N#define SAFE_NAME(__NAME)   CONNECT3(__,__NAME,__LINE__)
+N
+N#undef foreach2
+N#undef foreach3
+N#undef foreach
+N
+N#define foreach2(__type, __array)                                               \
+N            using(__type *_ = __array)                                          \
+N            for (   uint_fast32_t SAFE_NAME(count) = dimof(__array);            \
+N                    SAFE_NAME(count) > 0;                                       \
+N                    _++, SAFE_NAME(count)--                                     \
+N                )
+X#define foreach2(__type, __array)                                                           using(__type *_ = __array)                                                      for (   uint_fast32_t SAFE_NAME(count) = dimof(__array);                                SAFE_NAME(count) > 0;                                                           _++, SAFE_NAME(count)--                                                     )
+N
+N#define foreach3(__type, __array, __item)                                       \
+N            using(__type *_ = __array, *__item = _, _ = _, _ = _ )              \
+N            for (   uint_fast32_t SAFE_NAME(count) = dimof(__array);            \
+N                    SAFE_NAME(count) > 0;                                       \
+N                    _++, __item = _, SAFE_NAME(count)--                         \
+N                )
+X#define foreach3(__type, __array, __item)                                                   using(__type *_ = __array, *__item = _, _ = _, _ = _ )                          for (   uint_fast32_t SAFE_NAME(count) = dimof(__array);                                SAFE_NAME(count) > 0;                                                           _++, __item = _, SAFE_NAME(count)--                                         )
+N
+N#define foreach(...)                                                            \
+N            CONNECT2(foreach, __PLOOC_VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__)
+X#define foreach(...)                                                                        CONNECT2(foreach, __PLOOC_VA_NUM_ARGS(__VA_ARGS__))(__VA_ARGS__)
+N
+N#ifndef safe_atom_code
+N#   define safe_atom_code()                                                     \
+N            using(  uint32_t SAFE_NAME(temp) =                                  \
+N                        ({  uint32_t SAFE_NAME(temp2)=__get_PRIMASK();          \
+N                            __disable_irq();                                    \
+N                            SAFE_NAME(temp2);}),                                \
+N                        __set_PRIMASK(SAFE_NAME(temp)))
+X#   define safe_atom_code()                                                                 using(  uint32_t SAFE_NAME(temp) =                                                          ({  uint32_t SAFE_NAME(temp2)=__get_PRIMASK();                                      __disable_irq();                                                                SAFE_NAME(temp2);}),                                                        __set_PRIMASK(SAFE_NAME(temp)))
+N#endif
+N
+N#ifndef __IRQ_SAFE
+N#   define __IRQ_SAFE                                                           \
+N            using(  uint32_t SAFE_NAME(temp) =                                  \
+N                        ({  uint32_t SAFE_NAME(temp2)=__get_PRIMASK();          \
+N                            __disable_irq();                                    \
+N                            SAFE_NAME(temp2);}),                                \
+N                        __set_PRIMASK(SAFE_NAME(temp)))
+X#   define __IRQ_SAFE                                                                       using(  uint32_t SAFE_NAME(temp) =                                                          ({  uint32_t SAFE_NAME(temp2)=__get_PRIMASK();                                      __disable_irq();                                                                SAFE_NAME(temp2);}),                                                        __set_PRIMASK(SAFE_NAME(temp)))
+N#endif
+N
+N#ifndef __perf_counter_printf__
+N#   define __perf_counter_printf__      printf
+N#endif
+N
+N#if __PLOOC_VA_NUM_ARGS() != 0
+X#if 0 != 0
+S#warning Please enable GNU extensions, it is required by __cycleof__() and \
+S__super_loop_monitor__()
+X#warning Please enable GNU extensions, it is required by __cycleof__() and __super_loop_monitor__()
+N#endif
+N
+N#if defined(__PERF_COUNTER_CFG_USE_SYSTICK_WRAPPER__)
+X#if 1L
+N#   if defined(__IS_COMPILER_ARM_COMPILER_5__) && __IS_COMPILER_ARM_COMPILER_5__
+X#   if 1L && 1
+N#       pragma import(__ensure_systick_wrapper)
+N#   elif    (defined(__GNUC__) || defined(__clang__))                           \
+N        &&  (!defined(__IS_COMPILER_IAR__) || !__IS_COMPILER_IAR__)
+X#   elif    (1L || 0L)                                   &&  (!0L || !__IS_COMPILER_IAR__)
+S__asm(".global __ensure_systick_wrapper\n\t");
+N#   endif
+N#endif
+N/*! @} */
+N
+N/*============================ MACROFIED FUNCTIONS ===========================*/
+N
+N/*!
+N * \addtogroup gBasic 1 Basic
+N * @{
+N */
+N
+N/*!
+N * \brief measure the cycle count of a given code segment
+N * \param[in] __STR a description string for the measurement
+N * \param[in] ... an optional code segement, in which we can read the measured
+N *                result from __cycle_count__.
+N * \details Here is an example:
+N    E.g.
+N    \code
+N        __cycleof__("printf") {
+N            printf("hello world\r\n");
+N        }
+N    \endcode
+N */
+N#define __cycleof__(__STR, ...)                                                 \
+N            using(int64_t _ = get_system_ticks(), __cycle_count__ = _,          \
+N                _=_, {                                                          \
+N                _ = get_system_ticks() - _ - g_nOffset;                         \
+N                __cycle_count__ = _;                                            \
+N                if (__PLOOC_VA_NUM_ARGS(__VA_ARGS__) == 0) {                    \
+N                    __perf_counter_printf__("\r\n");                            \
+N                    __perf_counter_printf__("-[Cycle Report]");                 \
+N                    __perf_counter_printf__(                                    \
+N                        "--------------------------------------------\r\n");    \
+N                    __perf_counter_printf__(                                    \
+N                        __STR " total cycle count: %ld [%016lx]\r\n",           \
+N                            (long)_, (long)_);                                  \
+N                } else {                                                        \
+N                    __VA_ARGS__                                                 \
+N                };                                                              \
+N            })
+X#define __cycleof__(__STR, ...)                                                             using(int64_t _ = get_system_ticks(), __cycle_count__ = _,                          _=_, {                                                                          _ = get_system_ticks() - _ - g_nOffset;                                         __cycle_count__ = _;                                                            if (__PLOOC_VA_NUM_ARGS(__VA_ARGS__) == 0) {                                        __perf_counter_printf__("\r\n");                                                __perf_counter_printf__("-[Cycle Report]");                                     __perf_counter_printf__(                                                            "--------------------------------------------\r\n");                        __perf_counter_printf__(                                                            __STR " total cycle count: %ld [%016lx]\r\n",                                       (long)_, (long)_);                                                  } else {                                                                            __VA_ARGS__                                                                 };                                                                          })
+N
+N/*!
+N * \brief measure the cpu usage for a given code segment and print out the
+N *        result in percentage.
+N * \param[in] __CNT generate result on every given iterations
+N * \param[in] ... an optional code segement, in which we can read the measured
+N *                result from __usage__ which is a float value.
+N * \details Here is an example, 50% cpu time:
+N    E.g.
+N    \code
+N        while (1) {
+N            __cpu_time__(100) {
+N                delay_us(5000);
+N            }
+N            delay_us(5000);
+N        }
+N    \endcode
+N */
+N#define __cpu_time__(__CNT, ...)                                                \
+N    static int64_t SAFE_NAME(s_lTimestamp) = 0, SAFE_NAME(s_lTotal) = 0;        \
+N    static uint32_t s_wLoopCounter = (__CNT);                                   \
+N    using(float __usage__ = 0, ({                                               \
+N    if (0 == s_wLoopCounter) {                                                  \
+N        __usage__ = (float)((double)SAFE_NAME(s_lTotal)                         \
+N                        / (double)(     get_system_ticks()                      \
+N                                  -     SAFE_NAME(s_lTimestamp)));              \
+N        __usage__ *= 100.0f;                                                    \
+N        SAFE_NAME(s_lTimestamp) = 0;                                            \
+N        SAFE_NAME(s_lTotal) = 0;                                                \
+N        if (__PLOOC_VA_NUM_ARGS(__VA_ARGS__) == 0) {                            \
+N            __perf_counter_printf__("CPU Usage %3.2f%%\r\n", (double)__usage__);                 \
+N        } else {                                                                \
+N            __VA_ARGS__                                                         \
+N        }                                                                       \
+N    }                                                                           \
+N    if (0 == SAFE_NAME(s_lTimestamp)) {                                         \
+N        SAFE_NAME(s_lTimestamp) = get_system_ticks();                           \
+N        s_wLoopCounter = (__CNT);                                               \
+N    }                                                                           \
+N    start_task_cycle_counter();}),                                              \
+N    ({SAFE_NAME(s_lTotal) += stop_task_cycle_counter();                         \
+N    s_wLoopCounter--;}))
+X#define __cpu_time__(__CNT, ...)                                                    static int64_t SAFE_NAME(s_lTimestamp) = 0, SAFE_NAME(s_lTotal) = 0;            static uint32_t s_wLoopCounter = (__CNT);                                       using(float __usage__ = 0, ({                                                   if (0 == s_wLoopCounter) {                                                          __usage__ = (float)((double)SAFE_NAME(s_lTotal)                                                 / (double)(     get_system_ticks()                                                        -     SAFE_NAME(s_lTimestamp)));                      __usage__ *= 100.0f;                                                            SAFE_NAME(s_lTimestamp) = 0;                                                    SAFE_NAME(s_lTotal) = 0;                                                        if (__PLOOC_VA_NUM_ARGS(__VA_ARGS__) == 0) {                                        __perf_counter_printf__("CPU Usage %3.2f%%\r\n", (double)__usage__);                         } else {                                                                            __VA_ARGS__                                                                 }                                                                           }                                                                               if (0 == SAFE_NAME(s_lTimestamp)) {                                                 SAFE_NAME(s_lTimestamp) = get_system_ticks();                                   s_wLoopCounter = (__CNT);                                                   }                                                                               start_task_cycle_counter();}),                                                  ({SAFE_NAME(s_lTotal) += stop_task_cycle_counter();                             s_wLoopCounter--;}))
+N
+N/*!
+N * \addtogroup gBasicTimerService 1.2 Timer Service
+N * \ingroup gBasic
+N * @{
+N */
+N
+N/*!
+N * \brief should not use
+N */
+N#define perfc_is_time_out_ms0()         true
+N
+N/*!
+N * \brief set an alarm with given period in ms and check the status
+N *
+N * \param[in] __ms a time period in millisecond
+N * \param[in] __timestamp_ptr an optional timestamp holder
+N * \param[in] __auto_reload whether starting next period after a timeout event
+N *
+N * \return bool whether it is timeout
+N */
+N#define perfc_is_time_out_ms3(__ms, __timestamp_ptr, __auto_reload)             \
+N    ({  static int64_t SAFE_NAME(s_lTimestamp);  (void)SAFE_NAME(s_lTimestamp); \
+N        __perfc_is_time_out(perfc_convert_ms_to_ticks(__ms),                    \
+N        (__timestamp_ptr), (__auto_reload));})
+X#define perfc_is_time_out_ms3(__ms, __timestamp_ptr, __auto_reload)                 ({  static int64_t SAFE_NAME(s_lTimestamp);  (void)SAFE_NAME(s_lTimestamp);         __perfc_is_time_out(perfc_convert_ms_to_ticks(__ms),                            (__timestamp_ptr), (__auto_reload));})
+N
+N/*!
+N * \brief set an alarm with given period in ms and check the status
+N *
+N * \param[in] __ms a time period in millisecond
+N * \param[in] __timestamp_ptr an optional timestamp holder
+N *
+N * \return bool whether it is timeout
+N */
+N#define perfc_is_time_out_ms2(__ms, __timestamp_ptr)                            \
+N            perfc_is_time_out_ms3((__ms), (__timestamp_ptr), true)
+X#define perfc_is_time_out_ms2(__ms, __timestamp_ptr)                                        perfc_is_time_out_ms3((__ms), (__timestamp_ptr), true)
+N
+N
+N/*!
+N * \brief set an alarm with given period in ms and check the status
+N *
+N * \param[in] __ms a time period in millisecond
+N * \param[in] __timestamp_ptr an optional timestamp holder
+N *
+N * \return bool whether it is timeout
+N */
+N#define perfc_is_time_out_ms1(__ms)                                             \
+N            perfc_is_time_out_ms3((__ms), &SAFE_NAME(s_lTimestamp), true)
+X#define perfc_is_time_out_ms1(__ms)                                                         perfc_is_time_out_ms3((__ms), &SAFE_NAME(s_lTimestamp), true)
+N
+N/*!
+N * \brief set an alarm with given period in ms and check the status
+N *
+N * \param[in] __ms a time period in millisecond
+N * \param[in] ... an optional timestamp holder
+N * \param[in] ... an optional indicator for whether starting next period after a timeout event
+N *
+N * \return bool whether it is timeout
+N */
+N#define perfc_is_time_out_ms(...)                                               \
+N            CONNECT2(perfc_is_time_out_ms, __PLOOC_VA_NUM_ARGS(__VA_ARGS__))    \
+N                (__VA_ARGS__)
+X#define perfc_is_time_out_ms(...)                                                           CONNECT2(perfc_is_time_out_ms, __PLOOC_VA_NUM_ARGS(__VA_ARGS__))                    (__VA_ARGS__)
+N
+N/*!
+N * \brief set an alarm with given period in us and check the status
+N *
+N * \param[in] __us a time period in microsecond
+N * \param[in] __timestamp_ptr an optional timestamp holder
+N * \param[in] __auto_reload whether starting next period after a timeout event
+N *
+N * \return bool whether it is timeout
+N */
+N#define perfc_is_time_out_us3(__us, __timestamp_ptr, __auto_reload)             \
+N    ({  static int64_t SAFE_NAME(s_lTimestamp); (void)SAFE_NAME(s_lTimestamp);  \
+N        __perfc_is_time_out(perfc_convert_us_to_ticks(__us),                    \
+N        (__timestamp_ptr), (__auto_reload));})
+X#define perfc_is_time_out_us3(__us, __timestamp_ptr, __auto_reload)                 ({  static int64_t SAFE_NAME(s_lTimestamp); (void)SAFE_NAME(s_lTimestamp);          __perfc_is_time_out(perfc_convert_us_to_ticks(__us),                            (__timestamp_ptr), (__auto_reload));})
+N
+N/*!
+N * \brief set an alarm with given period in us and check the status
+N *
+N * \param[in] __us a time period in microsecond
+N * \param[in] __timestamp_ptr an optional timestamp holder
+N *
+N * \return bool whether it is timeout
+N */
+N#define perfc_is_time_out_us2(__us, __timestamp_ptr)                            \
+N            perfc_is_time_out_us3((__us), (__timestamp_ptr), true)
+X#define perfc_is_time_out_us2(__us, __timestamp_ptr)                                        perfc_is_time_out_us3((__us), (__timestamp_ptr), true)
+N
+N
+N/*!
+N * \brief set an alarm with given period in us and check the status
+N *
+N * \param[in] __us a time period in microsecond
+N * \param[in] __timestamp_ptr an optional timestamp holder
+N *
+N * \return bool whether it is timeout
+N */
+N#define perfc_is_time_out_us1(__us)                                             \
+N            perfc_is_time_out_us3((__us), &SAFE_NAME(s_lTimestamp), true)
+X#define perfc_is_time_out_us1(__us)                                                         perfc_is_time_out_us3((__us), &SAFE_NAME(s_lTimestamp), true)
+N
+N/*!
+N * \brief set an alarm with given period in us and check the status
+N *
+N * \param[in] __us a time period in microsecond
+N * \param[in] ... an optional timestamp holder
+N * \param[in] ... an optional indicator for whether starting next period after a timeout event
+N *
+N * \return bool whether it is timeout
+N */
+N#define perfc_is_time_out_us(...)                                               \
+N            CONNECT2(perfc_is_time_out_us, __PLOOC_VA_NUM_ARGS(__VA_ARGS__))    \
+N                (__VA_ARGS__)
+X#define perfc_is_time_out_us(...)                                                           CONNECT2(perfc_is_time_out_us, __PLOOC_VA_NUM_ARGS(__VA_ARGS__))                    (__VA_ARGS__)
+N
+N
+N/*! @} */
+N
+N/*! @} */
+N
+N/*!
+N * \addtogroup gRTOS 2 RTOS Support
+N * @{
+N */
+N#define __super_loop_monitor__(__N, ...)                                        \
+N    using(                                                                      \
+N        struct {                                                                \
+N            int64_t lStart;                                                     \
+N            int64_t lTaskUsedCycles;                                            \
+N            int64_t lTimeElapsed;                                               \
+N        } __cpu_usage__ = {.lStart = get_system_ticks()})                       \
+N    using(int SAFE_NAME(cnt) = (__N))                                           \
+N    for(start_task_cycle_counter();; ({                                         \
+N        if (!(--SAFE_NAME(cnt))) {                                              \
+N            __cpu_usage__.lTimeElapsed                                          \
+N                = get_system_ticks() - __cpu_usage__.lStart - g_nOffset;        \
+N            __cpu_usage__.lTaskUsedCycles = stop_task_cycle_counter();          \
+N                                                                                \
+N            if (__PLOOC_VA_NUM_ARGS(__VA_ARGS__) == 0) {                        \
+N                __perf_counter_printf__(                                        \
+N                    "%s CPU Usage %2.3f%%\r\n", __func__,                       \
+N                    (float)((double)__cpu_usage__.lTaskUsedCycles * 100.0 /     \
+N                            (double)__cpu_usage__.lTimeElapsed));               \
+N            } else {                                                            \
+N                __VA_ARGS__;                                                    \
+N            }                                                                   \
+N            SAFE_NAME(cnt) = (__N);                                             \
+N            __cpu_usage__.lStart = get_system_ticks();                          \
+N            start_task_cycle_counter();                                         \
+N        };                                                                      \
+N    }))
+X#define __super_loop_monitor__(__N, ...)                                            using(                                                                              struct {                                                                            int64_t lStart;                                                                 int64_t lTaskUsedCycles;                                                        int64_t lTimeElapsed;                                                       } __cpu_usage__ = {.lStart = get_system_ticks()})                           using(int SAFE_NAME(cnt) = (__N))                                               for(start_task_cycle_counter();; ({                                                 if (!(--SAFE_NAME(cnt))) {                                                          __cpu_usage__.lTimeElapsed                                                          = get_system_ticks() - __cpu_usage__.lStart - g_nOffset;                    __cpu_usage__.lTaskUsedCycles = stop_task_cycle_counter();                                                                                                      if (__PLOOC_VA_NUM_ARGS(__VA_ARGS__) == 0) {                                        __perf_counter_printf__(                                                            "%s CPU Usage %2.3f%%\r\n", __func__,                                           (float)((double)__cpu_usage__.lTaskUsedCycles * 100.0 /                                 (double)__cpu_usage__.lTimeElapsed));                           } else {                                                                            __VA_ARGS__;                                                                }                                                                               SAFE_NAME(cnt) = (__N);                                                         __cpu_usage__.lStart = get_system_ticks();                                      start_task_cycle_counter();                                                 };                                                                          }))
+N
+N/*============================ TYPES =========================================*/
+Ntypedef struct {
+N    int64_t             lStart;
+N    int64_t             lUsedTotal;
+N    int32_t             nUsedRecent;
+N    uint16_t            hwActiveCount;
+N    uint16_t                        : 15;
+N    uint16_t            bEnabled    : 1;
+N} task_cycle_info_t;
+N
+Ntypedef struct task_cycle_info_agent_t task_cycle_info_agent_t;
+N
+Nstruct task_cycle_info_agent_t {
+N    task_cycle_info_t *ptInfo;
+N    task_cycle_info_agent_t *ptNext;
+N    task_cycle_info_agent_t *ptPrev;
+N};
+N
+N/*! @} */
+N
+N/*============================ GLOBAL VARIABLES ==============================*/
+Nextern volatile int64_t g_lLastTimeStamp;
+Nextern volatile int32_t g_nOffset;
+N/*============================ LOCAL VARIABLES ===============================*/
+N/*============================ PROTOTYPES ====================================*/
+N
+N
+N
+N/*!
+N * \addtogroup gBasicTicks 1.1 Ticks APIs
+N * \ingroup gBasic
+N * @{
+N */
+N/*!
+N * \brief get the elapsed cycles since perf_counter is initialised
+N * \return int64_t the elpased cycles
+N */
+N__attribute__((noinline))
+Nextern int64_t get_system_ticks(void);
+N
+N
+N#ifdef __PERF_CNT_USE_LONG_CLOCK__
+S/*! \note the prototype of this clock() is different from the one defined in
+S *!           time.h. As clock_t is usually defined as unsigned int, it is
+S *!           not big enough in Cortex-M system to hold a time-stamp. clock()
+S *!           defined here returns the timestamp since the begining of main()
+S *!           and its unit is clock cycle (rather than 1ms). Hence, for a system
+S *!           running under several hundreds MHz or even 1GHz, e.g. RT10xx from
+S *!           NXP, it is very easy to see a counter overflow as clock_t is
+S *!           defined as uint32_t in timer.h.
+S *!           Since we are not allowed to change the defintion of clock_t in
+S *!           official header file, i.e. time.h, I use a compatible prototype
+S *!           after I checked the AAPCS spec. So, the return of the clock() is
+S *!           int64_t, which will use the R0 to store the lower 32bits and R1
+S *!           to store the higher 32bits. When you are using the prototype from
+S *!           timer.h, caller will only take the lower 32bits stored in R0 and
+S *!           the higher 32bits stored in R1 will be ignored.
+S *!
+S *!           If you want to use the non-overflow version of this clock(), please
+S *!           1) define the MACRO: __PERF_CNT_USE_LONG_CLOCK__ in your project
+S *!           and 2) do not include system header file <time.h>
+S *!
+S */
+S#if !defined(__IS_COMPILER_IAR__)
+S__attribute__((nothrow))
+S#endif
+S__attribute__((noinline))
+Sextern int64_t clock(void);
+N#endif
+N
+N/*!
+N * \brief try to set a start pointer for the performance counter
+N */
+N__STATIC_INLINE
+Xstatic __inline
+Nvoid start_cycle_counter(void)
+N{
+N    g_lLastTimeStamp = get_system_ticks();
+N}
+N
+N/*!
+N * \brief calculate the elapsed cycle count since the last start point
+N * \note  you can have multiple stop_cycle_counter following one start point
+N * \return int32_t the elapsed cycle count
+N */
+N__STATIC_INLINE
+Xstatic __inline
+Nint64_t stop_cycle_counter(void)
+N{
+N    int64_t lTemp = (get_system_ticks() - g_lLastTimeStamp);
+N
+N    return lTemp - g_nOffset;
+N}
+N
+N
+N
+N
+N/*! @} */
+N
+N
+N/*!
+N * \addtogroup gBasicTimerService 1.2 Timer Service
+N * \ingroup gBasic
+N * @{
+N */
+N
+N/*!
+N * \brief get the elapsed milliseconds since perf_counter is initialised
+N * \return int32_t the elapsed milliseconds
+N */
+Nextern int32_t get_system_ms(void);
+N
+N/*!
+N * \brief get the elapsed microsecond since perf_counter is initialised
+N * \return int32_t the elapsed microsecond
+N */
+Nextern int32_t get_system_us(void);
+N
+N
+N
+N/*!
+N * \brief delay specified time in microsecond
+N * \param[in] nUs time in microsecond
+N */
+Nextern void delay_us(int32_t nUs);
+N
+N/*!
+N * \brief delay specified time in millisecond
+N * \param[in] nMs time in millisecond
+N */
+Nextern void delay_ms(int32_t nMs);
+N
+N/*!
+N * \brief convert ticks of a reference timer to millisecond
+N *
+N * \param[in] lTick the tick count
+N * \return int64_t the millisecond
+N */
+Nextern
+Nint64_t perfc_convert_ticks_to_ms(int64_t lTick);
+N
+N/*!
+N * \brief convert millisecond into ticks of the reference timer
+N *
+N * \param[in] wMS the target time in millisecond
+N * \return int64_t the ticks
+N */
+Nextern
+Nint64_t perfc_convert_ms_to_ticks(uint32_t wMS);
+N
+N/*!
+N * \brief convert ticks of a reference timer to microsecond
+N *
+N * \param[in] lTick the tick count
+N * \return int64_t the microsecond
+N */
+Nextern
+Nint64_t perfc_convert_ticks_to_us(int64_t lTick);
+N
+N/*!
+N * \brief convert microsecond into ticks of the reference timer
+N *
+N * \param[in] wUS the target time in microsecond
+N * \return int64_t the ticks
+N */
+Nextern
+Nint64_t perfc_convert_us_to_ticks(uint32_t wUS);
+N
+N/*!
+N * \brief set an alarm with given period and check the status
+N *
+N * \param[in] lPeriod a time period in ticks
+N * \param[in] plTimestamp a pointer points to an int64_t integer, if NULL is
+N *            passed, an static local variable inside the function will be used
+N * \param[in] bAutoReload whether starting next period after a timeout event.
+N * \return bool whether it is timeout or not
+N */
+Nextern
+Nbool __perfc_is_time_out(int64_t lPeriod, int64_t *plTimestamp, bool bAutoReload);
+X_Bool __perfc_is_time_out(int64_t lPeriod, int64_t *plTimestamp, _Bool bAutoReload);
+N
+N/*! @} */
+N
+N
+N
+N
+N/*!
+N * \addtogroup gRTOS 2 RTOS Support
+N * @{
+N */
+N
+N#if defined(__PERF_CNT_USE_RTOS__)
+X#if 0L
+S
+S/*! \brief initialize the default virtual cycle counter for the current task
+S */
+Sextern void init_task_cycle_counter(void);
+S
+S/*! \brief provide cycle information for target task
+S *  \details Support RTOS List:
+S *           - RTX5
+S *           - RT-Thread
+S *           - ThreadX
+S *           - FreeRTOS
+S *
+S * \return task_cycle_info_t* the cycle info object passed to this function
+S */
+Sextern task_cycle_info_t * get_rtos_task_cycle_info(void);
+S
+S
+S/*!
+S * \brief intialize a given task_cycle_info_t object and enable it before
+S *        registering it.
+S * \return task_cycle_info_t* the cycle info object passed to this function
+S */
+Sextern task_cycle_info_t *init_task_cycle_info(task_cycle_info_t *ptInfo);
+S
+S/*! \brief enable a given task_cycle_info_t object
+S *
+S * \param[in] ptInfo the address of target task_cycle_info_t object
+S * \return bool previous status
+S */
+Sextern bool enable_task_cycle_info(task_cycle_info_t *ptInfo);
+S
+S/*! \brief disable a given task_cycle_info_t object
+S *
+S * \param[in] ptInfo the address of target task_cycle_info_t object
+S * \return bool previous status
+S */
+Sextern bool disable_task_cycle_info(task_cycle_info_t *ptInfo);
+S
+S/*! \brief resume the enabled status of a given task_cycle_info_t object
+S *
+S * \param[in] ptInfo the address of target task_cycle_info_t object
+S * \param[in] bEnabledStatus the previous status
+S */
+Sextern
+Svoid resume_task_cycle_info(task_cycle_info_t *ptInfo, bool bEnabledStatus);
+S
+S/*!
+S * \brief register a global virtual cycle counter agent to the current task
+S * \param[in] ptInfo the address of target task_cycle_info_t object
+S * \param[in] ptAgent an list node for the task_cycle_info_t object
+S * \note the ptAgent it is better to be allocated as a static variable, global
+S *       variable or comes from heap or pool
+S *
+S * \return task_cycle_info_agent_t* the agent passed to this function
+S */
+Sextern
+Stask_cycle_info_agent_t *register_task_cycle_agent(
+S                                            task_cycle_info_t *ptInfo,
+S                                            task_cycle_info_agent_t *ptAgent);
+S
+S/*!
+S * \brief remove a global virtual cycle counter agent from the current task
+S * \param[in] ptAgent the list node currently in use
+S * \return task_cycle_info_agent_t* the agent passed to this function
+S */
+Sextern
+Stask_cycle_info_agent_t *
+Sunregister_task_cycle_agent(task_cycle_info_agent_t *ptAgent);
+S
+S/*! \brief reset and start the virtual cycle counter for the current task
+S *
+S * \param[in] ptInfo the target task_cycle_info_t object
+S */
+S__attribute__((noinline))
+Sextern void __start_task_cycle_counter(task_cycle_info_t *ptInfo);
+S
+S/*! \brief calculate the elapsed cycle count for current task since the last
+S *        start point
+S *
+S * \note you can call stop_cycle_counter() multiple times following one
+S *       start_task_cycle_counter()
+S *
+S * \param[in] ptInfo the target task_cycle_info_t object
+S *
+S * \note  When ptInfo is NULL, it returns current task cycle info, when ptInfo
+S *        is non-NULL, it returns the total used cycles of the specified
+S *        task_cycle_info_t object.
+S *
+S * \return int64_t the elapsed cycle count.
+S */
+S__attribute__((noinline))
+Sextern int64_t __stop_task_cycle_counter(task_cycle_info_t *ptInfo);
+S
+S
+S#define start_task_cycle_counter(...)                                           \
+S            __start_task_cycle_counter((NULL,##__VA_ARGS__))
+X#define start_task_cycle_counter(...)                                                       __start_task_cycle_counter((NULL,##__VA_ARGS__))
+S
+S#define stop_task_cycle_counter(...)                                            \
+S            __stop_task_cycle_counter((NULL,##__VA_ARGS__))
+X#define stop_task_cycle_counter(...)                                                        __stop_task_cycle_counter((NULL,##__VA_ARGS__))
+S
+S#elif !defined(__IMPLEMENT_PERF_COUNTER)
+X#elif !1L
+S#   define start_task_cycle_counter(...)    start_cycle_counter()
+S#   define stop_task_cycle_counter(...)     stop_cycle_counter()
+S#   define init_task_cycle_counter()
+S#   define register_task_cycle_agent(...)
+S#   define unregister_task_cycle_agent(...)
+S#   define init_task_cycle_info(...)        (NULL)
+S#   define enable_task_cycle_info(...)      (false)
+S#   define disable_task_cycle_info(...)     (false)
+S#   define resume_task_cycle_info(...)
+N#endif
+N
+N/*! @} */
+N
+N/*!
+N * \addtogroup gBasic 1 Basic
+N * @{
+N */
+N
+N/*----------------------------------------------------------------------------*
+N * Please ignore the following APIs unless you have encountered some known    *
+N * special conditions                                                         *
+N *----------------------------------------------------------------------------*/
+N
+N/*! \brief   initialise cycle counter service
+N *  \note    - don't forget to tell the function whether the systick is already
+N *           used by user applications.
+N *           Don't worry, this cycle counter service won't affect your existing
+N *           systick service.
+N *
+N *  \note    - Usually the perf_counter can initialise itself with the help of
+N *           __attribute__((constructor(255))), this works fine in Arm Compiler
+N *           5 (armcc), Arm Compiler 6 (armclang), arm gcc and llvm. It doesn't
+N *           work for IAR. So, when you are using IAR, please call this function
+N *           manually to initialise the perf_counter service.
+N *
+N *  \note    - Perf_counter library assumes that:
+N *           1. Your project has already using SysTick
+N *           2. It assumes that you have already implemented the SysTick_Handler
+N *           3. It assumes that you have enabled the exception handling for
+N *              SysTick.
+N *           If these are not the case, please:
+N *               1. Add an empty SysTick_Handler to your project if you don't have
+N *              one
+N *               2. Make sure you have the SysTick Exception handling enabled
+N *               3. And call function init_cycle_counter(false) if you doesn't
+N *              use SysTick in your project at all.
+N *
+N *  \param[in] bIsSysTickOccupied  A boolean value which indicates whether SysTick
+N *           is already used by user application.
+N */
+Nextern void init_cycle_counter(bool bIsSysTickOccupied);
+Xextern void init_cycle_counter(_Bool bIsSysTickOccupied);
+N
+N
+N/*!
+N * \brief a system timer handler inserted to the SysTick_Handler
+N *
+N * \note  - if you are using a compiler other than armcc or armclang, e.g. iar,
+N *        arm gcc etc, the systick_wrapper_ual.o doesn't work with the linker
+N *        of your target toolchain as it use the $Super$$ which is only supported
+N *        by armlink. For this condition, you have to manually put this function
+N *        into your existing SysTick_Handler to make the perf_counter library
+N *        work.
+N *
+N * \note  - if you are using Arm Compiler 5 (armcc) or Arm Compiler 6 (armclang)
+N *        you do NOT have to insert this function into your SysTick_Handler,
+N *        the systick_wrapper_ual.s will do the work for you.
+N */
+Nextern void user_code_insert_to_systick_handler(void);
+N
+N/*!
+N * \brief update perf_counter as SystemCoreClock has been updated.
+N */
+Nextern void update_perf_counter(void);
+N
+N/*!
+N * \brief prepare for reconfiguration of SysTick timer.
+N *
+N * \note some systems (e.g. FreeRTOS) might reconfigure the systick timer to
+N *       fulfil the requirement of their feature. To support this, just
+N *       before the reconfiguration, please call this function in order 
+N *       to make the perf_counter works correctly later. 
+N *
+N * \note after the reconfiguration, please call update_perf_counter() to apply
+N *       the changes to perf_counter.
+N *
+N * \note this function will stop the SysTick, clear the pending bit and set
+N *       the Load register and Current Value register to zero.
+N */
+Nextern void before_cycle_counter_reconfiguration(void);
+N
+N/*! @} */
+N
+N/*!
+N * \addtogroup gBenchmark 3 Benchmark
+N * @{
+N */
+N
+N#ifdef __PERF_COUNTER_COREMARK__
+S
+S/*!
+S * \brief entry for coremark
+S */
+Svoid coremark_main(void);
+N#endif
+N
+N/*! @} */
+N
+N
+N//#if defined(__clang__)
+N//#   pragma clang diagnostic pop
+N//#elif defined(__IS_COMPILER_GCC__)
+N//#   pragma GCC diagnostic pop
+N//#endif
+N
+N#ifdef __cplusplus
+S}
+N#endif
+N
+N#endif
+L 28 "C:/Users/qizha/AppData/Local/Arm/Packs/GorgonMeducer/perf_counter/2.2.3/perf_counter.c" 2
+N
+N#if defined(__IS_COMPILER_GCC__)
+X#if 0L
+S#   pragma GCC diagnostic ignored "-Wattributes"
+N#endif
+N
+N#if defined(__clang__)
+X#if 0L
+S#   pragma clang diagnostic ignored "-Wunknown-warning-option"
+S#   pragma clang diagnostic ignored "-Wreserved-identifier"
+S#   pragma clang diagnostic ignored "-Wconditional-uninitialized"
+S#   pragma clang diagnostic ignored "-Wcast-align"
+S#   pragma clang diagnostic ignored "-Wmissing-prototypes"
+N#endif
+N
+N
+N/*============================ MACROS ========================================*/
+N#ifndef PERF_CNT_COMPENSATION_THRESHOLD
+N#   define PERF_CNT_COMPENSATION_THRESHOLD          16
+N#endif
+N
+N#ifndef PERF_CNT_DELAY_US_COMPENSATION
+N#   define PERF_CNT_DELAY_US_COMPENSATION           90
+N#endif
+N
+N
+N/* IO definitions (access restrictions to peripheral registers) */
+N#ifdef __cplusplus
+S  #define   __I     volatile             /*!< Defines 'read only' permissions */
+N#else
+N  #define   __I     volatile const       /*!< Defines 'read only' permissions */
+N#endif
+N#define     __O     volatile             /*!< Defines 'write only' permissions */
+N#define     __IO    volatile             /*!< Defines 'read / write' permissions */
+N
+N/* following defines should be used for structure members */
+N#define     __IM     volatile const      /*! Defines 'read only' structure member permissions */
+N#define     __OM     volatile            /*! Defines 'write only' structure member permissions */
+N#define     __IOM    volatile            /*! Defines 'read / write' structure member permissions */
+N
+N/* Memory mapping of Core Hardware */
+N#define SCS_BASE            (0xE000E000UL)                                      /*!< System Control Space Base Address */
+N#define SysTick_BASE        (SCS_BASE +  0x0010UL)                              /*!< SysTick Base Address */
+N#define SCB_BASE            (SCS_BASE +  0x0D00UL)                              /*!< System Control Block Base Address */
+N
+N#define SysTick             ((SysTick_Type   *)     SysTick_BASE     )          /*!< SysTick configuration struct */
+N#define SCB                 ((SCB_Type       *)     SCB_BASE      )             /*!< SCB configuration struct */
+N
+N/* SysTick Control / Status Register Definitions */
+N#define SysTick_CTRL_COUNTFLAG_Pos         16U                                            /*!< SysTick CTRL: COUNTFLAG Position */
+N#define SysTick_CTRL_COUNTFLAG_Msk         (1UL << SysTick_CTRL_COUNTFLAG_Pos)            /*!< SysTick CTRL: COUNTFLAG Mask */
+N
+N#define SysTick_CTRL_CLKSOURCE_Pos          2U                                            /*!< SysTick CTRL: CLKSOURCE Position */
+N#define SysTick_CTRL_CLKSOURCE_Msk         (1UL << SysTick_CTRL_CLKSOURCE_Pos)            /*!< SysTick CTRL: CLKSOURCE Mask */
+N
+N#define SysTick_CTRL_TICKINT_Pos            1U                                            /*!< SysTick CTRL: TICKINT Position */
+N#define SysTick_CTRL_TICKINT_Msk           (1UL << SysTick_CTRL_TICKINT_Pos)              /*!< SysTick CTRL: TICKINT Mask */
+N
+N#define SysTick_CTRL_ENABLE_Pos             0U                                            /*!< SysTick CTRL: ENABLE Position */
+N#define SysTick_CTRL_ENABLE_Msk            (1UL /*<< SysTick_CTRL_ENABLE_Pos*/)           /*!< SysTick CTRL: ENABLE Mask */
+N
+N/* SysTick Reload Register Definitions */
+N#define SysTick_LOAD_RELOAD_Pos             0U                                            /*!< SysTick LOAD: RELOAD Position */
+N#define SysTick_LOAD_RELOAD_Msk            (0xFFFFFFUL /*<< SysTick_LOAD_RELOAD_Pos*/)    /*!< SysTick LOAD: RELOAD Mask */
+N
+N/* SysTick Current Register Definitions */
+N#define SysTick_VAL_CURRENT_Pos             0U                                            /*!< SysTick VAL: CURRENT Position */
+N#define SysTick_VAL_CURRENT_Msk            (0xFFFFFFUL /*<< SysTick_VAL_CURRENT_Pos*/)    /*!< SysTick VAL: CURRENT Mask */
+N
+N/* SysTick Calibration Register Definitions */
+N#define SysTick_CALIB_NOREF_Pos            31U                                            /*!< SysTick CALIB: NOREF Position */
+N#define SysTick_CALIB_NOREF_Msk            (1UL << SysTick_CALIB_NOREF_Pos)               /*!< SysTick CALIB: NOREF Mask */
+N
+N#define SysTick_CALIB_SKEW_Pos             30U                                            /*!< SysTick CALIB: SKEW Position */
+N#define SysTick_CALIB_SKEW_Msk             (1UL << SysTick_CALIB_SKEW_Pos)                /*!< SysTick CALIB: SKEW Mask */
+N
+N#define SysTick_CALIB_TENMS_Pos             0U                                            /*!< SysTick CALIB: TENMS Position */
+N#define SysTick_CALIB_TENMS_Msk            (0xFFFFFFUL /*<< SysTick_CALIB_TENMS_Pos*/)    /*!< SysTick CALIB: TENMS Mask */
+N
+N/*@} end of group CMSIS_SysTick */
+N
+N#define SCB_ICSR_PENDSTCLR_Pos             25U                                            /*!< SCB ICSR: PENDSTCLR Position */
+N#define SCB_ICSR_PENDSTCLR_Msk             (1UL << SCB_ICSR_PENDSTCLR_Pos)                /*!< SCB ICSR: PENDSTCLR Mask */
+N
+N#define SCB_ICSR_PENDSTSET_Pos             26U                                            /*!< SCB ICSR: PENDSTSET Position */
+N#define SCB_ICSR_PENDSTSET_Msk             (1UL << SCB_ICSR_PENDSTSET_Pos)                /*!< SCB ICSR: PENDSTSET Mask */
+N
+N
+N#define MAGIC_WORD_AGENT_LIST_VALID        0x8492A53C
+N#define MAGIC_WORD_CANARY                  0xDEADBEEF
+N
+N/*============================ MACROFIED FUNCTIONS ===========================*/
+N/*============================ TYPES =========================================*/
+N
+N/*!
+N  \brief  Structure type to access the System Timer (SysTick).
+N */
+Ntypedef struct
+N{
+N  __IOM uint32_t CTRL;                   /*!< Offset: 0x000 (R/W)  SysTick Control and Status Register */
+X  volatile uint32_t CTRL;                    
+N  __IOM uint32_t LOAD;                   /*!< Offset: 0x004 (R/W)  SysTick Reload Value Register */
+X  volatile uint32_t LOAD;                    
+N  __IOM uint32_t VAL;                    /*!< Offset: 0x008 (R/W)  SysTick Current Value Register */
+X  volatile uint32_t VAL;                     
+N  __IM  uint32_t CALIB;                  /*!< Offset: 0x00C (R/ )  SysTick Calibration Register */
+X  volatile const  uint32_t CALIB;                   
+N} SysTick_Type;
+N
+N/*!
+N  \brief  Structure type to access the System Control Block (SCB).
+N */
+Ntypedef struct
+N{
+N  __IM  uint32_t CPUID;                  /*!< Offset: 0x000 (R/ )  CPUID Base Register */
+X  volatile const  uint32_t CPUID;                   
+N  __IOM uint32_t ICSR;                   /*!< Offset: 0x004 (R/W)  Interrupt Control and State Register */
+X  volatile uint32_t ICSR;                    
+N  __IOM uint32_t VTOR;                   /*!< Offset: 0x008 (R/W)  Vector Table Offset Register */
+X  volatile uint32_t VTOR;                    
+N  __IOM uint32_t AIRCR;                  /*!< Offset: 0x00C (R/W)  Application Interrupt and Reset Control Register */
+X  volatile uint32_t AIRCR;                   
+N  __IOM uint32_t SCR;                    /*!< Offset: 0x010 (R/W)  System Control Register */
+X  volatile uint32_t SCR;                     
+N  __IOM uint32_t CCR;                    /*!< Offset: 0x014 (R/W)  Configuration Control Register */
+X  volatile uint32_t CCR;                     
+N  __IOM uint8_t  SHP[12U];               /*!< Offset: 0x018 (R/W)  System Handlers Priority Registers (4-7, 8-11, 12-15) */
+X  volatile uint8_t  SHP[12U];                
+N  __IOM uint32_t SHCSR;                  /*!< Offset: 0x024 (R/W)  System Handler Control and State Register */
+X  volatile uint32_t SHCSR;                   
+N  __IOM uint32_t CFSR;                   /*!< Offset: 0x028 (R/W)  Configurable Fault Status Register */
+X  volatile uint32_t CFSR;                    
+N  __IOM uint32_t HFSR;                   /*!< Offset: 0x02C (R/W)  HardFault Status Register */
+X  volatile uint32_t HFSR;                    
+N  __IOM uint32_t DFSR;                   /*!< Offset: 0x030 (R/W)  Debug Fault Status Register */
+X  volatile uint32_t DFSR;                    
+N  __IOM uint32_t MMFAR;                  /*!< Offset: 0x034 (R/W)  MemManage Fault Address Register */
+X  volatile uint32_t MMFAR;                   
+N  __IOM uint32_t BFAR;                   /*!< Offset: 0x038 (R/W)  BusFault Address Register */
+X  volatile uint32_t BFAR;                    
+N  __IOM uint32_t AFSR;                   /*!< Offset: 0x03C (R/W)  Auxiliary Fault Status Register */
+X  volatile uint32_t AFSR;                    
+N  __IM  uint32_t PFR[2U];                /*!< Offset: 0x040 (R/ )  Processor Feature Register */
+X  volatile const  uint32_t PFR[2U];                 
+N  __IM  uint32_t DFR;                    /*!< Offset: 0x048 (R/ )  Debug Feature Register */
+X  volatile const  uint32_t DFR;                     
+N  __IM  uint32_t ADR;                    /*!< Offset: 0x04C (R/ )  Auxiliary Feature Register */
+X  volatile const  uint32_t ADR;                     
+N  __IM  uint32_t MMFR[4U];               /*!< Offset: 0x050 (R/ )  Memory Model Feature Register */
+X  volatile const  uint32_t MMFR[4U];                
+N  __IM  uint32_t ISAR[5U];               /*!< Offset: 0x060 (R/ )  Instruction Set Attributes Register */
+X  volatile const  uint32_t ISAR[5U];                
+N        uint32_t RESERVED0[5U];
+N  __IOM uint32_t CPACR;                  /*!< Offset: 0x088 (R/W)  Coprocessor Access Control Register */
+X  volatile uint32_t CPACR;                   
+N} SCB_Type;
+N
+Nstruct __task_cycle_info_t {
+N    task_cycle_info_t       tInfo;             //!< cycle information
+N    int64_t                 lLastTimeStamp;    //!< previous timestamp
+N    task_cycle_info_agent_t tList;             //!< the root of the agent list
+N    uint32_t                wMagicWord;        //!< an magic word for validation
+N} ;
+N
+N
+N/*============================ GLOBAL VARIABLES ==============================*/
+Nextern uint32_t SystemCoreClock;
+N
+N/*============================ LOCAL VARIABLES ===============================*/
+Nvolatile int64_t g_lLastTimeStamp = 0;
+Nvolatile static int64_t s_lOldTimestamp;
+Nvolatile int32_t g_nOffset = 0;
+Nvolatile static int32_t s_nUSUnit = 1;
+Nvolatile static int32_t s_nMSUnit = 1;
+Nvolatile static int32_t s_nMSResidule = 0;
+Nvolatile static int32_t s_nUSResidule = 0;
+Nvolatile static int32_t s_nSystemMS = 0;
+Nvolatile static int32_t s_nSystemUS = 0;
+N
+Nvolatile static int64_t s_lSystemClockCounts = 0;
+N
+N
+N/*============================ PROTOTYPES ====================================*/
+N/*============================ IMPLEMENTATION ================================*/
+N/*============================ INCLUDES ======================================*/
+N
+N__STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
+Xstatic __inline uint32_t SysTick_Config(uint32_t ticks)
+N{
+N    if ((ticks - 1UL) > SysTick_LOAD_RELOAD_Msk)
+X    if ((ticks - 1UL) > (0xFFFFFFUL ))
+N    {
+N        return (1UL);                                                           /* Reload value impossible */
+N    }
+N
+N    //__IRQ_SAFE {
+N        SysTick->CTRL  = 0;
+X        ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->CTRL  = 0;
+N
+N        SysTick->LOAD  = (uint32_t)(ticks - 1UL);                               /* set reload register */
+X        ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->LOAD  = (uint32_t)(ticks - 1UL);                                
+N        //NVIC_SetPriority (SysTick_IRQn, (1UL << __NVIC_PRIO_BITS) - 1UL);     /* set Priority for Systick Interrupt */
+N        SysTick->VAL   = 0UL;                                                   /* Load the SysTick Counter Value */
+X        ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->VAL   = 0UL;                                                    
+N        SysTick->CTRL  =   SysTick_CTRL_CLKSOURCE_Msk |
+X        ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->CTRL  =   (1UL << 2U) |
+N                           SysTick_CTRL_TICKINT_Msk   |
+X                           (1UL << 1U)   |
+N                           SysTick_CTRL_ENABLE_Msk;                             /* Enable SysTick IRQ and SysTick Timer */
+X                           (1UL );                              
+N        //SCB->ICSR      = SCB_ICSR_PENDSTCLR_Msk;
+N    //}
+N    return (0UL);                                                               /* Function successful */
+N}
+N
+Nvoid user_code_insert_to_systick_handler(void)
+N{
+N    uint32_t wLoad = SysTick->LOAD + 1;
+X    uint32_t wLoad = ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->LOAD + 1;
+N    s_lSystemClockCounts += wLoad;
+N
+N    // update system ms counter
+N    do {
+N        s_nMSResidule += wLoad;
+N        int32_t nMS = s_nMSResidule / s_nMSUnit;
+N        s_nMSResidule -= nMS * s_nMSUnit;
+N        s_nSystemMS += nMS;
+N    } while(0);
+N
+N    // update system us counter
+N    do {
+N        s_nUSResidule += wLoad;
+N        int32_t nUS = s_nUSResidule / s_nUSUnit;
+N        s_nUSResidule -= nUS * s_nUSUnit;
+N        s_nSystemUS += nUS;
+N    } while(0);
+N
+N}
+N
+N__WEAK
+X__attribute__((weak))
+Nvoid __perf_os_patch_init(void)
+N{
+N}
+N
+N
+Nvoid update_perf_counter(void)
+N{
+N    s_nUSUnit = SystemCoreClock / 1000000ul;
+N    s_nMSUnit = SystemCoreClock / 1000ul;
+N    
+N    __IRQ_SAFE {
+X    for (uint32_t __temp243 = ({ uint32_t __temp2243=__get_PRIMASK(); __disable_irq(); __temp2243;}), *__using_243_ptr = 0; __using_243_ptr++ == 0; (__set_PRIMASK(__temp243)) ) {
+N        g_lLastTimeStamp = get_system_ticks();
+N        g_nOffset = get_system_ticks() - g_lLastTimeStamp;
+N    }
+N}
+N
+N
+Nvoid init_cycle_counter(bool bIsSysTickOccupied)
+Xvoid init_cycle_counter(_Bool bIsSysTickOccupied)
+N{
+N    __IRQ_SAFE {
+X    for (uint32_t __temp252 = ({ uint32_t __temp2252=__get_PRIMASK(); __disable_irq(); __temp2252;}), *__using_252_ptr = 0; __using_252_ptr++ == 0; (__set_PRIMASK(__temp252)) ) {
+N        if (!bIsSysTickOccupied) {
+N            SysTick_Config(0x01000000);             // use the longest period
+N        }
+N        SCB->ICSR      = SCB_ICSR_PENDSTCLR_Msk;
+X        ((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->ICSR      = (1UL << 25U);
+N    }
+N    
+N    update_perf_counter();
+N    s_lSystemClockCounts = 0;                       // reset system cycle counter
+N    s_nSystemMS = 0;                                // reset system millisecond counter
+N    s_nSystemUS = 0;                                // reset system microsecond counter
+N
+N    __perf_os_patch_init();
+N}
+N
+N/*! \note this function should only be called when irq is disabled
+N *        hence SysTick-LOAD and (SCB->ICSR & SCB_ICSR_PENDSTSET_Msk)
+N *        won't change.
+N */
+N__STATIC_INLINE int32_t check_systick(void)
+Xstatic __inline int32_t check_systick(void)
+N{
+N    int32_t nTemp = (int32_t)SysTick->LOAD - (int32_t)SysTick->VAL;
+X    int32_t nTemp = (int32_t)((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->LOAD - (int32_t)((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->VAL;
+N
+N    /*        Since we cannot stop counting temporarily, there are several
+N     *        conditions which we should take into consideration:
+N     *        - Condition 1: when assigning nTemp with the register value (LOAD-VAL),
+N     *            the underflow didn't happen but when we check the PENDSTSET bit,
+N     *            the underflow happens, for this condition, we should not
+N     *            do any compensation. When this happens, the (LOAD-nTemp) is
+N     *            smaller than PERF_CNT_COMPENSATION_THRESHOLD (a small value) as
+N     *            long as LOAD is bigger than (or equals to) the
+N     *            PERF_CNT_COMPENSATION_THRESHOLD;
+N     *        - Condition 2: when assigning nTemp with the register value (LOAD-VAL),
+N     *            the VAL is zero and underflow happened and the PENDSTSET bit
+N     *            is set, for this condition, we should not do any compensation.
+N     *            When this happens, the (LOAD-nTemp) is equals to zero.
+N     *        - Condition 3: when assigning nTemp with the register value (LOAD-VAL),
+N     *            the underflow has already happened, hence the PENDSTSET
+N     *            is set, for this condition, we should compensate the return
+N     *            value. When this happens, the (LOAD-nTemp) is bigger than (or
+N     *            equals to) PERF_CNT_COMPENSATION_THRESHOLD.
+N     *        The following code implements an equivalent logic.
+N     */
+N    if (SCB->ICSR & SCB_ICSR_PENDSTSET_Msk){
+X    if (((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->ICSR & (1UL << 26U)){
+N        if (((int32_t)SysTick->LOAD - nTemp) >= PERF_CNT_COMPENSATION_THRESHOLD) {
+X        if (((int32_t)((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->LOAD - nTemp) >= 16) {
+N            nTemp += SysTick->LOAD + 1;
+X            nTemp += ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->LOAD + 1;
+N        }
+N    }
+N
+N    return nTemp;
+N}
+N
+Nvoid before_cycle_counter_reconfiguration(void)
+N{
+N    __IRQ_SAFE {
+X    for (uint32_t __temp306 = ({ uint32_t __temp2306=__get_PRIMASK(); __disable_irq(); __temp2306;}), *__using_306_ptr = 0; __using_306_ptr++ == 0; (__set_PRIMASK(__temp306)) ) {
+N        SysTick->CTRL  = 0;                                                     /* disable SysTick first */
+X        ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->CTRL  = 0;                                                      
+N
+N        if (SCB->ICSR & SCB_ICSR_PENDSTSET_Msk) {                               /* pending SysTick exception */
+X        if (((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->ICSR & (1UL << 26U)) {                                
+N            SCB->ICSR = SCB_ICSR_PENDSTCLR_Msk;                                 /* clear pending bit */
+X            ((SCB_Type *) ((0xE000E000UL) + 0x0D00UL) )->ICSR = (1UL << 25U);                                  
+N
+N            user_code_insert_to_systick_handler();                              /* manually handle exception */
+N
+N        }
+N        s_lSystemClockCounts = get_system_ticks();                              /* get the final cycle counter value */
+N
+N        SysTick->LOAD = 0UL;
+X        ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->LOAD = 0UL;
+N        SysTick->VAL = 0UL;                                                     /* clear the Current Value Register */
+X        ((SysTick_Type *) ((0xE000E000UL) + 0x0010UL) )->VAL = 0UL;                                                      
+N    }
+N}
+N
+N
+N
+N__attribute__((constructor))
+Nvoid __perf_counter_init(void)
+N{
+N    init_cycle_counter(true);
+X    init_cycle_counter(1);
+N}
+N
+N
+Nvoid delay_us(int32_t nUs)
+N{
+N    int64_t lUs = (int64_t)nUs * (int64_t)s_nUSUnit;
+N    int32_t iCompensate = g_nOffset > PERF_CNT_DELAY_US_COMPENSATION
+X    int32_t iCompensate = g_nOffset > 90
+N                        ? g_nOffset 
+N                        : PERF_CNT_DELAY_US_COMPENSATION;
+X                        : 90;
+N
+N    if (lUs <= iCompensate) {
+N        return ;
+N    }
+N
+N    lUs -= iCompensate;
+N
+N    lUs += get_system_ticks();
+N    while(get_system_ticks() < lUs);
+N}
+N
+N
+Nvoid delay_ms(int32_t nMs)
+N{
+N    int64_t lUs = (int64_t)nMs * (int64_t)s_nMSUnit;
+N    int32_t iCompensate = g_nOffset > PERF_CNT_DELAY_US_COMPENSATION
+X    int32_t iCompensate = g_nOffset > 90
+N                        ? g_nOffset 
+N                        : PERF_CNT_DELAY_US_COMPENSATION;
+X                        : 90;
+N
+N    if (lUs <= iCompensate) {
+N        return ;
+N    }
+N
+N    lUs -= iCompensate;
+N
+N    lUs += get_system_ticks();
+N    while(get_system_ticks() < lUs);
+N}
+N
+N__attribute__((noinline))
+Nint64_t get_system_ticks(void)
+N{
+N    int64_t lTemp = 0;
+N
+N    __IRQ_SAFE {
+X    for (uint32_t __temp371 = ({ uint32_t __temp2371=__get_PRIMASK(); __disable_irq(); __temp2371;}), *__using_371_ptr = 0; __using_371_ptr++ == 0; (__set_PRIMASK(__temp371)) ) {
+N        lTemp = check_systick() + s_lSystemClockCounts;
+N        
+N        /* When calling get_system_ticks() in an exception handler that has a  
+N         * higher priority than the SysTick_Handler, in some rare cases, the 
+N         * lTemp might be temporarily smaller than the previous value (i.e. 
+N         * s_lOldTimestamp), to mitigate the adverse effects of this problem,
+N         * we use the following code to avoid time-rolling-back issue.
+N         * 
+N         * NOTE: the issue mentioned above doesn't accumulate or have long-lasting
+N         *       effects.
+N         */
+N        if (lTemp < s_lOldTimestamp) {
+N            lTemp = s_lOldTimestamp;
+N        } else {
+N            s_lOldTimestamp = lTemp;
+N        }
+N    }
+N
+N    return lTemp;
+N}
+N
+N/*! \note the prototype of this clock() is different from the one defined in
+N *!           time.h. As clock_t is usually defined as unsigned int, it is
+N *!           not big enough in Cortex-M system to hold a time-stamp. clock()
+N *!           defined here returns the timestamp since the begining of main()
+N *!           and its unit is clock cycle (rather than 1ms). Hence, for a system
+N *!           running under several hundreds MHz or even 1GHz, e.g. RT10xx from
+N *!           NXP, it is very easy to see a counter overflow as clock_t is
+N *!           defined as uint32_t in timer.h.
+N *!           Since we are not allowed to change the defintion of clock_t in
+N *!           official header file, i.e. time.h, I use a compatible prototype
+N *!           after I checked the AAPCS spec. So, the return of the clock() is
+N *!           int64_t, which will use the R0 to store the lower 32bits and R1
+N *!           to store the higher 32bits. When you are using the prototype from
+N *!           timer.h, caller will only take the lower 32bits stored in R0 and
+N *!           the higher 32bits stored in R1 will be ignored.
+N *!
+N *!           If you want to use the non-overflow version of this clock(), please
+N *!           1) define the MACRO: __PERF_CNT_USE_LONG_CLOCK__ in your project
+N *!           and 2) do not include system header file <time.h>
+N *!
+N */
+N#if !defined(__IS_COMPILER_IAR__)
+X#if !0L
+N__attribute__((nothrow))
+N#endif
+N__attribute__((noinline))
+Nint64_t clock(void)
+N{
+N    return get_system_ticks();
+N}
+N
+Nint32_t get_system_ms(void)
+N{
+N    int32_t nTemp = 0;
+N
+N    __IRQ_SAFE {
+X    for (uint32_t __temp427 = ({ uint32_t __temp2427=__get_PRIMASK(); __disable_irq(); __temp2427;}), *__using_427_ptr = 0; __using_427_ptr++ == 0; (__set_PRIMASK(__temp427)) ) {
+N        nTemp = s_nSystemMS + (check_systick() + s_nMSResidule) / s_nMSUnit;
+N    }
+N
+N    return nTemp;
+N}
+N
+Nint32_t get_system_us(void)
+N{
+N    int32_t nTemp = 0;
+N
+N    __IRQ_SAFE {
+X    for (uint32_t __temp438 = ({ uint32_t __temp2438=__get_PRIMASK(); __disable_irq(); __temp2438;}), *__using_438_ptr = 0; __using_438_ptr++ == 0; (__set_PRIMASK(__temp438)) ) {
+N        nTemp = s_nSystemUS + (check_systick() + s_nUSResidule) / s_nUSUnit;
+N    }
+N
+N    return nTemp;
+N}
+N
+Nint64_t perfc_convert_ticks_to_ms(int64_t lTick)
+N{
+N    return lTick / (int64_t)s_nMSUnit;
+N}
+N
+Nint64_t perfc_convert_ms_to_ticks(uint32_t wMS)
+N{
+N    int64_t lResult = (int64_t)s_nMSUnit * (int64_t)wMS;
+N    return lResult ? lResult : 1;
+N}
+N
+Nint64_t perfc_convert_ticks_to_us(int64_t lTick)
+N{
+N    return lTick / (int64_t)s_nUSUnit;
+N}
+N
+Nint64_t perfc_convert_us_to_ticks(uint32_t wMS)
+N{
+N    int64_t lResult = (int64_t)s_nUSUnit * (int64_t)wMS;
+N    return lResult ? lResult : 1;
+N}
+N
+N
+Nbool __perfc_is_time_out(int64_t lPeriod, int64_t *plTimestamp, bool bAutoReload)
+X_Bool __perfc_is_time_out(int64_t lPeriod, int64_t *plTimestamp, _Bool bAutoReload)
+N{
+N    if (NULL == plTimestamp) {
+X    if (0 == plTimestamp) {
+N        return false;
+X        return 0;
+N    }
+N    
+N    int64_t lTimestamp = get_system_ticks();
+N
+N
+N    if (0 == *plTimestamp) {
+N        *plTimestamp = lPeriod;
+N        *plTimestamp += lTimestamp;
+N        
+N        return false;
+X        return 0;
+N    }
+N
+N    if (lTimestamp >= *plTimestamp) {
+N        if (bAutoReload) {
+N            *plTimestamp = lPeriod + lTimestamp;
+N        }
+N        return true;
+X        return 1;
+N    }
+N
+N    return false;
+X    return 0;
+N}
+N
+N
+N/// Setup timer hardware.
+N/// \return       status (1=Success, 0=Failure)
+Nuint32_t EventRecorderTimerSetup (void)
+N{
+N    /* doing nothing at all */
+N    return 1;
+N}
+N
+N/// Get timer frequency.
+N/// \return       timer frequency in Hz
+Nuint32_t EventRecorderTimerGetFreq (void)
+N{
+N    return SystemCoreClock;
+N}
+N
+N/// Get timer count.
+N/// \return       timer count (32-bit)
+Nuint32_t EventRecorderTimerGetCount (void)
+N{
+N    return get_system_ticks();
+N}
+N
+N
+N
+N__WEAK
+X__attribute__((weak))
+Ntask_cycle_info_t * get_rtos_task_cycle_info(void)
+N{
+N    return NULL;
+X    return 0;
+N}
+N
+Nvoid init_task_cycle_counter(void)
+N{
+N    struct __task_cycle_info_t * ptRootAgent =
+N        (struct __task_cycle_info_t *)get_rtos_task_cycle_info();
+N    if (NULL == ptRootAgent) {
+X    if (0 == ptRootAgent) {
+N        return ;
+N    }
+N
+N    memset(ptRootAgent, 0, sizeof(struct __task_cycle_info_t));
+N
+N    ptRootAgent->tList.ptInfo = &(ptRootAgent->tInfo);
+N    ptRootAgent->tInfo.lStart = get_system_ticks();
+N    ptRootAgent->wMagicWord = MAGIC_WORD_CANARY;
+X    ptRootAgent->wMagicWord = 0xDEADBEEF;
+N}
+N
+Ntask_cycle_info_t *init_task_cycle_info(task_cycle_info_t *ptInfo)
+N{
+N    do {
+N        if (NULL == ptInfo) {
+X        if (0 == ptInfo) {
+N            break;
+N        }
+N
+N        memset(ptInfo, 0, sizeof(task_cycle_info_t));
+N
+N        ptInfo->bEnabled = true;
+X        ptInfo->bEnabled = 1;
+N    } while(0);
+N
+N    return ptInfo;
+N}
+N
+Nbool enable_task_cycle_info(task_cycle_info_t *ptInfo)
+X_Bool enable_task_cycle_info(task_cycle_info_t *ptInfo)
+N{
+N    if (NULL == ptInfo) {
+X    if (0 == ptInfo) {
+N        return false;
+X        return 0;
+N    }
+N    bool bOrig;
+X    _Bool bOrig;
+N    __IRQ_SAFE {
+X    for (uint32_t __temp561 = ({ uint32_t __temp2561=__get_PRIMASK(); __disable_irq(); __temp2561;}), *__using_561_ptr = 0; __using_561_ptr++ == 0; (__set_PRIMASK(__temp561)) ) {
+N        bOrig = ptInfo->bEnabled;
+N        ptInfo->bEnabled = true;
+X        ptInfo->bEnabled = 1;
+N    }
+N    return bOrig;
+N}
+N
+Nbool disable_task_cycle_info(task_cycle_info_t *ptInfo)
+X_Bool disable_task_cycle_info(task_cycle_info_t *ptInfo)
+N{
+N    if (NULL == ptInfo) {
+X    if (0 == ptInfo) {
+N        return false;
+X        return 0;
+N    }
+N    bool bOrig;
+X    _Bool bOrig;
+N    __IRQ_SAFE {
+X    for (uint32_t __temp574 = ({ uint32_t __temp2574=__get_PRIMASK(); __disable_irq(); __temp2574;}), *__using_574_ptr = 0; __using_574_ptr++ == 0; (__set_PRIMASK(__temp574)) ) {
+N        bOrig = ptInfo->bEnabled;
+N        ptInfo->bEnabled = false;
+X        ptInfo->bEnabled = 0;
+N    }
+N    return bOrig;
+N}
+N
+Nvoid resume_task_cycle_info(task_cycle_info_t *ptInfo, bool bEnabledStatus)
+Xvoid resume_task_cycle_info(task_cycle_info_t *ptInfo, _Bool bEnabledStatus)
+N{
+N    if (NULL == ptInfo) {
+X    if (0 == ptInfo) {
+N        return;
+N    }
+N
+N    ptInfo->bEnabled = bEnabledStatus;
+N}
+N
+N
+Ntask_cycle_info_agent_t *register_task_cycle_agent(task_cycle_info_t *ptInfo,
+N                                             task_cycle_info_agent_t *ptAgent)
+N{
+N    __IRQ_SAFE {
+X    for (uint32_t __temp594 = ({ uint32_t __temp2594=__get_PRIMASK(); __disable_irq(); __temp2594;}), *__using_594_ptr = 0; __using_594_ptr++ == 0; (__set_PRIMASK(__temp594)) ) {
+N        do {
+N            if (NULL == ptAgent || NULL == ptInfo) {
+X            if (0 == ptAgent || 0 == ptInfo) {
+N                break;
+N            }
+N
+N            struct __task_cycle_info_t * ptRootAgent =
+N                (struct __task_cycle_info_t *)get_rtos_task_cycle_info();
+N            if (NULL == ptRootAgent) {
+X            if (0 == ptRootAgent) {
+N                break;
+N            }
+N
+N            ptRootAgent->wMagicWord = MAGIC_WORD_AGENT_LIST_VALID;
+X            ptRootAgent->wMagicWord = 0x8492A53C;
+N
+N            ptAgent->ptInfo = ptInfo;
+N
+N            // push to the stack
+N            do {
+N                // set next-list
+N                ptAgent->ptNext = ptRootAgent->tList.ptNext;
+N                ptRootAgent->tList.ptNext = ptAgent;
+N
+N                // set prev-list
+N                ptAgent->ptPrev = &(ptRootAgent->tList);
+N                if (NULL != ptAgent->ptNext) {
+X                if (0 != ptAgent->ptNext) {
+N                    ptAgent->ptNext->ptPrev = ptAgent;
+N                }
+N            } while(0);
+N
+N        } while(0);
+N    }
+N
+N    return ptAgent;
+N}
+N
+Ntask_cycle_info_agent_t *
+Nunregister_task_cycle_agent(task_cycle_info_agent_t *ptAgent)
+N{
+N    __IRQ_SAFE {
+X    for (uint32_t __temp632 = ({ uint32_t __temp2632=__get_PRIMASK(); __disable_irq(); __temp2632;}), *__using_632_ptr = 0; __using_632_ptr++ == 0; (__set_PRIMASK(__temp632)) ) {
+N        do {
+N            if (NULL == ptAgent) {
+X            if (0 == ptAgent) {
+N                break;
+N            }
+N
+N            task_cycle_info_agent_t *ptPrev = ptAgent->ptPrev;
+N            if (NULL == ptPrev) {
+X            if (0 == ptPrev) {
+N                break;      /* this should not happen */
+N            }
+N            if (ptPrev->ptNext != ptAgent) {
+N                // already removed
+N                break;
+N            }
+N
+N            //! remove agent from the next-list
+N            ptPrev->ptNext = ptAgent->ptNext;
+N
+N            if (NULL != ptAgent->ptNext) {
+X            if (0 != ptAgent->ptNext) {
+N                // remove agent from the prev-list
+N                ptAgent->ptNext->ptPrev = ptPrev;
+N            }
+N
+N            ptAgent->ptNext = NULL;
+X            ptAgent->ptNext = 0;
+N            ptAgent->ptPrev = NULL;
+X            ptAgent->ptPrev = 0;
+N
+N        } while(0);
+N    }
+N
+N    return ptAgent;
+N}
+N
+N
+Nvoid __on_context_switch_in(uint32_t *pwStack)
+N{
+N    struct __task_cycle_info_t *ptRootAgent = (struct __task_cycle_info_t *)pwStack;
+N    int64_t lTimeStamp = get_system_ticks();
+N
+N    ptRootAgent->lLastTimeStamp = lTimeStamp;
+N    ptRootAgent->tInfo.hwActiveCount++;
+N
+N    if (MAGIC_WORD_AGENT_LIST_VALID == ptRootAgent->wMagicWord) {
+X    if (0x8492A53C == ptRootAgent->wMagicWord) {
+N        // update all agents
+N        task_cycle_info_agent_t *ptAgent = ptRootAgent->tList.ptNext;
+N        while(NULL != ptAgent) {
+X        while(0 != ptAgent) {
+N            if (NULL != ptAgent->ptInfo) {
+X            if (0 != ptAgent->ptInfo) {
+N                if (ptAgent->ptInfo->bEnabled) {
+N                    ptAgent->ptInfo->hwActiveCount++;
+N                }
+N            }
+N            ptAgent = ptAgent->ptNext;
+N        }
+N    }
+N}
+N
+Nvoid __on_context_switch_out(uint32_t *pwStack)
+N{
+N    struct __task_cycle_info_t *ptRootAgent = (struct __task_cycle_info_t *)pwStack;
+N    int64_t lCycleUsed = get_system_ticks() - ptRootAgent->lLastTimeStamp - g_nOffset;
+N
+N    ptRootAgent->tInfo.nUsedRecent = lCycleUsed;
+N    ptRootAgent->tInfo.lUsedTotal += lCycleUsed;
+N
+N    if (MAGIC_WORD_AGENT_LIST_VALID == ptRootAgent->wMagicWord) {
+X    if (0x8492A53C == ptRootAgent->wMagicWord) {
+N        // update all agents
+N        task_cycle_info_agent_t *ptAgent = ptRootAgent->tList.ptNext;
+N        while(NULL != ptAgent) {
+X        while(0 != ptAgent) {
+N            if (NULL != ptAgent->ptInfo) {
+X            if (0 != ptAgent->ptInfo) {
+N                if (ptAgent->ptInfo->bEnabled) {
+N                    ptAgent->ptInfo->nUsedRecent = lCycleUsed;
+N                    ptAgent->ptInfo->lUsedTotal += lCycleUsed;
+N                }
+N            }
+N            ptAgent = ptAgent->ptNext;
+N        }
+N    }
+N}
+N
+N__attribute__((noinline))
+Nvoid __start_task_cycle_counter(task_cycle_info_t *ptInfo)
+N{
+N    struct __task_cycle_info_t * ptRootAgent =
+N        (struct __task_cycle_info_t *)get_rtos_task_cycle_info();
+N    if (NULL == ptRootAgent) {
+X    if (0 == ptRootAgent) {
+N        return ;
+N    }
+N
+N    __IRQ_SAFE {
+X    for (uint32_t __temp719 = ({ uint32_t __temp2719=__get_PRIMASK(); __disable_irq(); __temp2719;}), *__using_719_ptr = 0; __using_719_ptr++ == 0; (__set_PRIMASK(__temp719)) ) {
+N        ptRootAgent->lLastTimeStamp = get_system_ticks();
+N        ptRootAgent->tInfo.lUsedTotal = 0;
+N
+N        if (NULL != ptInfo) {
+X        if (0 != ptInfo) {
+N            ptInfo->lUsedTotal = 0;
+N            ptInfo->bEnabled = true;
+X            ptInfo->bEnabled = 1;
+N        }
+N    }
+N}
+N
+N__attribute__((noinline))
+Nint64_t __stop_task_cycle_counter(task_cycle_info_t *ptInfo)
+N{
+N    struct __task_cycle_info_t * ptRootAgent =
+N        (struct __task_cycle_info_t *)get_rtos_task_cycle_info();
+N    if (NULL == ptRootAgent) {
+X    if (0 == ptRootAgent) {
+N        return 0;
+N    }
+N
+N    int64_t lCycles = 0;
+N
+N    __IRQ_SAFE {
+X    for (uint32_t __temp741 = ({ uint32_t __temp2741=__get_PRIMASK(); __disable_irq(); __temp2741;}), *__using_741_ptr = 0; __using_741_ptr++ == 0; (__set_PRIMASK(__temp741)) ) {
+N        int64_t lCycleUsed = get_system_ticks() - ptRootAgent->lLastTimeStamp - g_nOffset;
+N        ptRootAgent->tInfo.lUsedTotal += lCycleUsed;
+N
+N        if (NULL != ptInfo) {
+X        if (0 != ptInfo) {
+N            if (ptInfo->bEnabled) {
+N                ptInfo->nUsedRecent = lCycleUsed;
+N                ptInfo->lUsedTotal += lCycleUsed;
+N                ptInfo->bEnabled = false;
+X                ptInfo->bEnabled = 0;
+N            }
+N
+N            lCycles = ptInfo->lUsedTotal;
+N        } else {
+N            lCycles = ptRootAgent->tInfo.lUsedTotal;
+N        }
+N    }
+N
+N    return lCycles;
+N}
+N

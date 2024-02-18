@@ -1,0 +1,65 @@
+L 1 "..\..\User\ugui v0.3\ugui.c"
+N/* -------------------------------------------------------------------------------- */
+N/* -- µGUI - Generic GUI module (C)Achim Döbler, 2015                            -- */
+N/* -------------------------------------------------------------------------------- */
+N// µGUI is a generic GUI module for embedded systems.
+N// This is a free software that is open for education, research and commercial
+N// developments under license policy of following terms.
+N//
+N//  Copyright (C) 2015, Achim Döbler, all rights reserved.
+N//  URL: http://www.embeddedlightning.com/
+N//
+N// * The µGUI module is a free software and there is NO WARRANTY.
+N// * No restriction on use. You can use, modify and redistribute it for
+N//   personal, non-profit or commercial products UNDER YOUR RESPONSIBILITY.
+N// * Redistributions of source code must retain the above copyright notice.
+N//
+N/* -------------------------------------------------------------------------------- */
+N/* -- REVISION HISTORY                                                           -- */
+N/* -------------------------------------------------------------------------------- */
+N//  Mar 18, 2015  V0.3  Driver support added.
+N//                      Window and object support added.
+N//                      Touch support added.
+N//                      Fixed some minor bugs.
+N//
+N//  Oct 20, 2014  V0.2  Function UG_DrawRoundFrame() added.
+N//                      Function UG_FillRoundFrame() added.
+N//                      Function UG_DrawArc() added.
+N//                      Fixed some minor bugs.
+N//
+N//  Oct 11, 2014  V0.1  First release.
+N/* -------------------------------------------------------------------------------- */
+N#include "ugui.h"
+L 1 "..\..\User\ugui v0.3\ugui.h" 1
+N/* -------------------------------------------------------------------------------- */
+N/* -- µGUI - Generic GUI module (C)Achim Döbler, 2015                            -- */
+N/* -------------------------------------------------------------------------------- */
+N// µGUI is a generic GUI module for embedded systems.
+N// This is a free software that is open for education, research and commercial
+N// developments under license policy of following terms.
+N//
+N//  Copyright (C) 2015, Achim Döbler, all rights reserved.
+N//  URL: http://www.embeddedlightning.com/
+N//
+N// * The µGUI module is a free software and there is NO WARRANTY.
+N// * No restriction on use. You can use, modify and redistribute it for
+N//   personal, non-profit or commercial products UNDER YOUR RESPONSIBILITY.
+N// * Redistributions of source code must retain the above copyright notice.
+N//
+N/* -------------------------------------------------------------------------------- */
+N/* -- REVISION HISTORY                                                           -- */
+N/* -------------------------------------------------------------------------------- */
+N//  Mar 18, 2015  V0.3  Driver support added.
+N//                      Window and object support added.
+N//                      Touch support added.
+N//                      Fixed some minor bugs.
+N//
+N//  Oct 20, 2014  V0.2  Function UG_DrawRoundFrame() added.
+N//                      Function UG_FillRoundFrame() added.
+N//                      Function UG_DrawArc() added.
+N//                      Fixed some minor bugs.
+N//
+N//  Oct 11, 2014  V0.1  First release.
+N/* -------------------------------------------------------------------------------- */
+C "..\..\User\ugui v0.3\ugui.h" 31 20 cannot open source input file "system.h": No such file or directory
+N#include "system.h"

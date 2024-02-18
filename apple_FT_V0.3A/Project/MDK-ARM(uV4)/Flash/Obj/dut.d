@@ -1,0 +1,15 @@
+.\flash\obj\dut.o: ..\..\User\chip_ft\dut.c
+.\flash\obj\dut.o: ..\..\User\chip_ft\__test_config.h
+.\flash\obj\dut.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\obj\dut.o: ..\..\User\chip_ft\__test_standard.h
+.\flash\obj\dut.o: ..\..\User\chip_ft\dut.h
+.\flash\obj\dut.o: ..\..\User\chip_ft\chip_type.h
+.\flash\obj\dut.o: ..\..\User\chip_ft\run_mode_info.h
+.\flash\obj\dut.o: ..\..\User\chip_ft\__test_return_type.h
+.\flash\obj\dut.o: ..\..\User\chip_ft\chip_info.h
+.\flash\obj\dut.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\flash\obj\dut.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\flash\obj\dut.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\flash\obj\dut.o: ..\..\User\lcd.h
+.\flash\obj\dut.o: ..\..\User\bsp_stm32f4xx\inc\bsp_lcd_st7789.h
+.\flash\obj\dut.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
